@@ -1,8 +1,8 @@
 # springbootshop
 
 springboot<br/>
-thymeleaf
-gradle/n
-AWS RDS Mysql/n
-AWS EC2(생성만 해놓음)/n
+thymeleaf<br/>
+gradle<br/>
+AWS RDS Mysql<br/>
+AWS EC2(생성만 해놓음)<br/>
 mybatis
