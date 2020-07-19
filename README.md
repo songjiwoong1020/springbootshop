@@ -1,6 +1,6 @@
 # springbootshop
 
-springboot/n
+springboot\n
 thymeleaf/n
 gradle/n
 AWS RDS Mysql/n
