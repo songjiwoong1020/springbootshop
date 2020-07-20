@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 //@RequiredArgsConstructor
 public class TestController {
-	
+/*	
 	private final TestService testService;//@RequiredArgsConstructor를 쓰려면 private final이 되어야하는건가?
 	
 	//@Autowired를 사용하지 않고 생성자를 통한 주입. 을 하려고 했으나 어노테이션으로 해결 가능한부분이네요.
@@ -36,4 +36,5 @@ public class TestController {
 		
 		return "main";
 	}
+	*/
 }

@@ -1,13 +1,11 @@
 package com.jiwoong.mapper;
 
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.jiwoong.dto.TestDTO;
 
-@Repository
+@Repository//Repository의 역할은 DAO와 같다고 보면 될듯 하다
 @Mapper
 public interface TestDAOimpl {
 	
