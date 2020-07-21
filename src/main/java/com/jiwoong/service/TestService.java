@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jiwoong.dto.TestDTO;
-import com.jiwoong.mapper.TestDAOimpl;
+import com.jiwoong.mapper.mybatisTest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class TestService {
 	
 	
-	private final TestDAOimpl mapper;
+	private final mybatisTest mapper;
 	
 	public int selectTest(){
 		

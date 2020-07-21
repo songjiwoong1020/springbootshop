@@ -8,20 +8,22 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 	
-	@Bean//시큐리티에서 제공하는 암호화방식
+	//시큐리티에서 제공하는 암호화방식
+	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		System.out.println("시큐리티 컨피규레이션");
 		http
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
@@ -29,34 +31,26 @@ public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/admin/**").hasRole("ADMIN")
 		//.and()
 		//	.csrf()//csrf에 대해서는 더 공부가 필요..
-		.and()
-			.httpBasic()
+		//.and()
+		//	.httpBasic()
 		.and()
 			.formLogin()
-			.loginPage("member/login")
-			.defaultSuccessUrl("/main")
+			.loginPage("/member/login")
+			.loginProcessingUrl("/loginProcess")
+			.defaultSuccessUrl("/")
+			.failureUrl("/member/login?error")
 			.permitAll()
 		.and()
 			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-			.logoutSuccessUrl("/main")
-			.invalidateHttpSession(true)
+			.logoutUrl("/member/login?logout")
+			.logoutSuccessUrl("/")
 		.and()
-			.exceptionHandling().accessDeniedPage("/member/denied"); //403페이지 처리
+			.exceptionHandling()
+			.accessDeniedPage("/member/denied"); //403페이지 처리
 	}
-	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//위 항목은 인증 무시
 		web.ignoring().antMatchers("/admin/login");
 	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-	}
-	
-	
-	
-	
 }
