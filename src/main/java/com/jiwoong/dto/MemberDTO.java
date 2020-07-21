@@ -1,8 +1,11 @@
 package com.jiwoong.dto;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
@@ -12,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class MemberDTO implements UserDetails{
 	
+	
 	private String id;
 	private String name;
 	private String pass;
@@ -20,15 +24,17 @@ public class MemberDTO implements UserDetails{
 	private String email;
 	private String regidate;
 	private String sms;// yes or no
-	private String role;//default 'member'
+	private String role;//default 'role_member'
 	private String birth;
 	private String phone;
 	
-	private Collection<? extends GrantedAuthority> authorities;
+	//private Collection<? extends GrantedAuthority> authorities;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.authorities;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(role.toUpperCase()));
+		return authorities;
 	}
 	@Override
 	public String getPassword() {
@@ -53,11 +59,6 @@ public class MemberDTO implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-	
-	public enum Role{
-		ROLE_MEMBER,
-		ROLE_ADMIN
 	}
 
 }

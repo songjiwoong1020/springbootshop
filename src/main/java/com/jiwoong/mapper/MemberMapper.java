@@ -9,6 +9,6 @@ import com.jiwoong.dto.MemberDTO;
 @Mapper
 public interface MemberMapper {
 	
-	public MemberDTO findUser(String id);
+	public MemberDTO findUser(String username);
 
 }

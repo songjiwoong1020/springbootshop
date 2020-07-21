@@ -3,7 +3,7 @@
 <mapper namespace="com.jiwoong.mapper.MemberMapper">
 
 	<select id="findUser" resultType="com.jiwoong.dto.MemberDTO">
-		SELECT * FROM member WHERE id = #{id}
+		SELECT * FROM springbootshop_db.member WHERE id = #{username}
 	</select>
 	
 </mapper>

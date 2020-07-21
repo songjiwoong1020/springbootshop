@@ -27,21 +27,23 @@ public class MemberController {
 		
 		return "member/login";
 	}
-
-	@PostMapping("/member/login")
-	public String memberLogin() {
-		System.out.println("POST메소드 호출");
-		
-		return "member/login";//생각좀해보자
-	}
+	
 
 	@GetMapping("/member/signup")
 	public String memberSignUp() {
 		return "member/signup";
 	}
 	
-	@GetMapping("admin/login")
+	@GetMapping("/admin/login")
 	public String adminLogin() {
 		return "admin/login";
+	}
+	@GetMapping("/admin/main")
+	public String adminMain() {
+		return "admin/main";
+	}
+	@GetMapping("/board/board")
+	public String adminMain2() {
+		return "board/board";
 	}
 }

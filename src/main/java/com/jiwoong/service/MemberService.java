@@ -24,42 +24,17 @@ import lombok.RequiredArgsConstructor;
 public class MemberService implements UserDetailsService{
 	
 	private final MemberMapper memberMapper;
-	//private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
+	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("loadUserByUsername메소드 호출");
 		MemberDTO memberDTO = memberMapper.findUser(username);
 		
-		return new User(memberDTO.getId(), memberDTO.getPass(), getAuthorities(memberDTO));
-	}
-	
-	/**
-	 * 권한 받아오는 부분
-	 * @param memberDTO
-	 * @return
-	 */
-	public Collection<? extends GrantedAuthority> getAuthorities(MemberDTO memberDTO){
-		String[] userRoles = convert(memberDTO.getRole());
-		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-		return authorities;
-	}
-	
-	/**
-	 * 실제 권한 매핑 함수
-	 * @param list
-	 * @return
-	 */
-	public String[] convert(List<MemberDTO> list) {
-		Spring[] arrayOfString = new String[list.size()];
+		System.out.println("id=" + memberDTO.getUsername() + " pass=" + memberDTO.getPassword() + " role=" + memberDTO.getAuthorities());
 		
-		int index = 0;
-		for (MemberDTO memberDTO : list) {
-			arrayOfString[index ++ ] = memberDTO
-		}
+		return new User(memberDTO.getUsername(), passwordEncoder.encode(memberDTO.getPassword()), memberDTO.getAuthorities());
 	}
-	
-	
-	
 	
 }

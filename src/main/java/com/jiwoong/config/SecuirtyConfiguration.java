@@ -36,7 +36,6 @@ public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 		.and()
 			.formLogin()
 			.loginPage("/member/login")
-			.loginProcessingUrl("/loginProcess")
 			.defaultSuccessUrl("/")
 			.failureUrl("/member/login?error")
 			.permitAll()
@@ -44,9 +43,9 @@ public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 			.logout()
 			.logoutUrl("/member/login?logout")
 			.logoutSuccessUrl("/")
-		.and()
-			.exceptionHandling()
-			.accessDeniedPage("/member/denied"); //403페이지 처리
+		.and();
+			//.exceptionHandling()
+			//.accessDeniedPage("/member/denied"); //403페이지 처리
 	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
