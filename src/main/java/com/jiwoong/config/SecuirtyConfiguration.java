@@ -23,10 +23,10 @@ public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("시큐리티 컨피규레이션");
 		http
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
+			.antMatchers("/member").permitAll()
 			.antMatchers("/board/**").hasAnyRole("MEMBER", "ADMIN")
 			.antMatchers("/admin/**").hasRole("ADMIN")
 		//.and()

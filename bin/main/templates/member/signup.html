@@ -21,7 +21,13 @@
         }
 
         .column {
-            max-width: 450px;
+            max-width: 700px;
+        }
+        p {
+            width: 100px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
         }
 
     </style>
@@ -31,32 +37,162 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui teal image header">
-                회원가입 페이지
+                회원가입
             </h2>
-            <div class="ui large form">
+            <form th:action="@{signup}" class="ui large form" method="post">
                 <div class="ui stacked segment">
-                    <div class="field">
+                    <table width="100%">
+                        <colgroup>
+                        <col width="20%"/>
+                        <col width="*"/>
+                        </colgroup>
+                        <tr>
+                            <td><p>이름</p></td>
+                            <td>
+                                <input type="text" id="u_name" name="u_name" placeholder="이름" style="width: 70%; float: left;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>아이디</p></td>
+                            <td>
+                                <input type="text" id="u_id" name="u_id" placeholder="아이디" style="width: 70%; float: left;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <span id="idCheck" style="text-align: left; color: crimson; font-weight: bold;">경고말</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>비밀번호</p></td>
+                            <td>
+                                <input type="text" id="u_pass" name="u_pass" placeholder="비밀번호" style="width: 70%; float: left;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>비밀번호 확인</p></td>
+                            <td>
+                                <input type="text" id="u_passCheck" name="u_passCheck" placeholder="비밀번호 확인"  style="width: 70%; float: left;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>생년월일/성별</p></td>
+                            <td>
+                                <div class="inline fields">
+                                    <select id="u_birthYear" name="u_birthYear" style="width: 20%;" >
+                                        <option value="1000">1000</option>
+                                    </select>
+                                    년
+                                    <select id="u_birthMonth" name="u_birthMonth" style="width: 20%;">
+                                        <option value="1000">10</option>
+                                    </select>
+                                    월
+                                    <select id="u_birthDay" name="u_birthDay" style="width: 20%;">
+                                        <option value="1000">10</option>
+                                    </select>
+                                    일
+                                    &nbsp;&nbsp;&nbsp;
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="sex" value="M" checked="checked">
+                                            <label>남</label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="sex" value="W">
+                                            <label>여</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>연락처</p></td>
+                            <td>
+                                <input type="text" id="u_phone" name="u_phone" placeholder='휴대폰번호 "-"없이 기입' style="width: 70%; float: left;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>이메일</p></td>
+                            <td>
+                                <div class="inline fields">
+                                    <input type="text" id="u_email1" name="u_email1">@<input type="text" id="u_email2" name="u_email2">
+                                    <select name="" id="">
+                                        <option value="non">직접입력</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>주소</p></td>
+                            <td>
+                                <input type="text" id="u_address1" name="u_address1" readonly style="width: 79%;"><button class="ui button">주소 검색</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>상세주소</p></td>
+                            <td>
+                                <input type="text" id="u_address2" name="u_address2" placeholder="상세주소" >
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div class="field">
                         <div class="ui left icon input">
-                            <input type="text" id="u_id" placeholder="아이디" autofocus autocomplete="off">
+                            <input type="text" id="u_name" placeholder="이름">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
-                            <input type="password" id="u_pw" placeholder="비밀번호">
+                            <input type="text" id="u_id" placeholder="아이디">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
-                            <input type="password" id="u_pw2" placeholder="비밀번호 확인">
+                            <input type="password" id="u_pass" placeholder="비밀번호">
                         </div>
                     </div>
-                    <button class="ui fluid large teal submit button" id="register_btn">회원가입</button>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="password" id="u_passCheck" placeholder="비밀번호 확인">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="생년월일/성별">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="주소">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="상세주소">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="연락처">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="이메일">
+                        </div>
+                    </div><div class="field">
+                        <div class="ui left icon input">
+                            <input type="text" id="u_" placeholder="SMS수신동의">
+                        </div>
+                    </div> -->
+                    <button type="submit" class="ui fluid large teal submit button" id="register_btn">회원가입</button>
                 </div>
-
                 <div class="ui error message"></div>
 
-            </div>
-
+            </form>
+            
             <div class="ui message">
                 로그인 할 계정이 있다면 <a href="/member/login">여기</a>를 눌러주세요.
             </div>

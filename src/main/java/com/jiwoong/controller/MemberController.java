@@ -20,17 +20,17 @@ public class MemberController {
 	public String main() {
 		return "/main";
 	}
-	
 	@GetMapping("/member/login")
 	public String memberLoginForm() {
-		System.out.println("loginForm진입");
-		
 		return "member/login";
 	}
-	
-
 	@GetMapping("/member/signup")
+	public String memberSignUpForm() {
+		return "member/signup";
+	}
+	@PostMapping("/member/signup")
 	public String memberSignUp() {
+		System.out.println("폼값 받자");
 		return "member/signup";
 	}
 	
@@ -45,5 +45,9 @@ public class MemberController {
 	@GetMapping("/board/board")
 	public String adminMain2() {
 		return "board/board";
+	}
+	@GetMapping("/member/denied")
+	public String memberDenied() {
+		return "member/denied";
 	}
 }
