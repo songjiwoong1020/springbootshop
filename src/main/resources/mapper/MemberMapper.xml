@@ -6,4 +6,9 @@
 		SELECT * FROM springbootshop_db.member WHERE id = #{username}
 	</select>
 	
+	<insert id="signUp">
+		INSERT INTO springbootshop_db.member (id, name, pass, sex, address, email, birth, phone)
+		VALUES (#{id}, #{name}, #{pass}, #{sex}, #{address}, #{email}, #{birth}, #{phone})
+	</insert>
+	
 </mapper>

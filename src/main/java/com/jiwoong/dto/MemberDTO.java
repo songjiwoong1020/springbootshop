@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,31 +22,18 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO implements UserDetails{
 	
 	
 	private String id;
-	
-	@NotNull
 	private String name;
-	
-	@NotNull
 	private String pass;
-
-	@NotNull
 	private String sex;// M or W (mysql은 check제약조건이 없음)
-
-	@NotNull
-	private String adress;
-	
+	private String address;
 	@Email
-	@NotNull
 	private String email;
-
-	@NotNull
 	private String regidate;
-
-	@NotNull
 	private String role;//default 'role_member'
 	private String birth;
 	private String phone;

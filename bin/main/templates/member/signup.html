@@ -6,6 +6,63 @@
     <title>회원가입</title>
     <!-- css 가져오기 -->
     <link rel="stylesheet" type="text/css" href="../semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script><!-- 우편번호API -->
+    <script type="text/javascript">
+    $(function(){
+        $('#pass').keyup(function(){
+            $('#passCheck').val('');
+            $('#passMsg').html('');
+   			$('#passCheckVal').val('false');
+        });
+        $('#passCheck').keyup(function(){
+            if($('#pass').val() == $('#passCheck').val()){
+                $('#passMsg').html('');
+    			$('#passCheckVal').val('true');
+            } else {
+                $('#passMsg').html('패스워드가 일치하지 않습니다.');
+    			$('#passCheckVal').val('false');
+            }
+        });
+        $('#selectEmail').change(function(){
+            
+            var text = $('#selectEmail option:selected').text();
+
+            var value = $('#selectEmail option:selected').val();
+
+            if(value == ''){
+                $('#email2').val('');
+                $('#email2').attr("readonly", true); 
+            }
+             else if(value == '1'){
+                $('#email2').val('');
+                //$('input[text][name=email2]').removeAttr("readonly"); 
+                $('#email2').attr("readonly", false); 
+            } else {
+                $('#email2').attr("readonly", true); 
+                $('#email2').val(value);
+            }
+            
+        });
+    });
+  	//우편번호 API
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = ''; 
+                var extraAddr = ''; 
+
+                if (data.userSelectedType === 'R') { 
+                    addr = data.roadAddress;
+                } else { 
+                    addr = data.jibunAddress;
+                }
+                document.getElementById('address1').value = data.zonecode + addr;
+                document.getElementById("address2").focus();
+            }
+        }).open();
+    }
+    </script>
 
     <style type="text/css">
         body {
@@ -29,6 +86,11 @@
             text-align: center;
             font-size: 1.1em;
         }
+        span {
+        	float : left;
+        	color : crimson;
+        	font-weight : bold;
+        }
 
     </style>
 </head>
@@ -39,8 +101,9 @@
             <h2 class="ui teal image header">
                 회원가입
             </h2>
-            <form th:action="@{signup}" class="ui large form" method="post">
+            <form th:action="@{signup}" class="ui large form" method="post" modelAttribute="memberRequestDTO">
                 <div class="ui stacked segment">
+                	<div>※실습용 사이트입니다. 암호는 시큐리티를 통해 암호화 되어서 저장되긴 하나 안전을위해 개인정보는 입력하지 말아주세요</div>
                     <table width="100%">
                         <colgroup>
                         <col width="20%"/>
@@ -49,46 +112,50 @@
                         <tr>
                             <td><p>이름</p></td>
                             <td>
-                                <input type="text" id="u_name" name="u_name" placeholder="이름" style="width: 70%; float: left;">
+                                <input type="text" id="name" name="name" placeholder="이름" style="margin-right:50px; width: 70%; float: left;" th:value="${memberRequestDTO?.name}">
+                                <span th:text="${valid_name}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>아이디</p></td>
                             <td>
-                                <input type="text" id="u_id" name="u_id" placeholder="아이디" style="width: 70%; float: left;">
+                                <input type="text" id="id" name="id" placeholder="아이디" style="margin-right:50px; width: 70%; float: left;" th:value="${memberRequestDTO?.id}">
+                                <span th:text="${valid_id}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <span id="idCheck" style="text-align: left; color: crimson; font-weight: bold;">경고말</span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>비밀번호</p></td>
                             <td>
-                                <input type="text" id="u_pass" name="u_pass" placeholder="비밀번호" style="width: 70%; float: left;">
+                                <input type="password" id="pass" name="pass" placeholder="비밀번호" style="width: 70%; float: left;">
+                                <span th:text="${valid_pass}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>비밀번호 확인</p></td>
                             <td>
-                                <input type="text" id="u_passCheck" name="u_passCheck" placeholder="비밀번호 확인"  style="width: 70%; float: left;">
+                                <input type="password" id="passCheck" placeholder="비밀번호 확인"  style="width: 70%; float: left;">
+                                <input type="hidden" value="false" name="passCheckVal" id="passCheckVal"/>
+                                <span id="passMsg"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>생년월일/성별</p></td>
                             <td>
                                 <div class="inline fields">
-                                    <select id="u_birthYear" name="u_birthYear" style="width: 20%;" >
-                                        <option value="1000">1000</option>
+                                    <select id="birth1" name="birth1" style="width: 20%;" >
+                                       	<option value="1000">1000</option>
                                     </select>
                                     년
-                                    <select id="u_birthMonth" name="u_birthMonth" style="width: 20%;">
+                                    <select id="birth3" name="birth2" style="width: 20%;">
                                         <option value="1000">10</option>
                                     </select>
                                     월
-                                    <select id="u_birthDay" name="u_birthDay" style="width: 20%;">
+                                    <select id="birth3" name="birth3" style="width: 20%;">
                                         <option value="1000">10</option>
                                     </select>
                                     일
@@ -111,30 +178,37 @@
                         <tr>
                             <td><p>연락처</p></td>
                             <td>
-                                <input type="text" id="u_phone" name="u_phone" placeholder='휴대폰번호 "-"없이 기입' style="width: 70%; float: left;">
+                                <input type="text" id="phone" name="phone" placeholder='휴대폰번호 "-"없이 기입' style="width: 70%; float: left;" th:value="${memberRequestDTO?.phone}">
+                                <span th:text="${valid_phone}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>이메일</p></td>
                             <td>
                                 <div class="inline fields">
-                                    <input type="text" id="u_email1" name="u_email1">@<input type="text" id="u_email2" name="u_email2">
-                                    <select name="" id="">
-                                        <option value="non">직접입력</option>
+                                    <input type="text" id="email1" name="email1" th:value="${memberRequestDTO?.email1}">@<input type="text" id="email2" name="email2" th:value="${memberRequestDTO?.email2}">
+                                    <select id="selectEmail">
+                                        <option value=''>선택하세요</option>
+                                        <option value="1">직접입력</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="naver.com">naver.com</option>
                                     </select>
                                 </div>
+                                <span th:text="${valid_email1}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>주소</p></td>
                             <td>
-                                <input type="text" id="u_address1" name="u_address1" readonly style="width: 79%;"><button class="ui button">주소 검색</button>
+                                <input type="text" id="address1" name="address1" readonly style="width: 79%;" th:value="${memberRequestDTO?.address1}"><button type="button" onclick="sample6_execDaumPostcode()" class="ui button">주소 검색</button>
+                                <span th:text="${valid_address1}" ></span>
                             </td>
                         </tr>
                         <tr>
                             <td><p>상세주소</p></td>
                             <td>
-                                <input type="text" id="u_address2" name="u_address2" placeholder="상세주소" >
+                                <input type="text" id="address2" name="address2" placeholder="상세주소"  th:value="${memberRequestDTO?.address2}">
+                                <span th:text="${valid_address2}" ></span>
                             </td>
                         </tr>
                     </table>

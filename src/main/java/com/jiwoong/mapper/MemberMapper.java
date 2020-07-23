@@ -10,5 +10,7 @@ import com.jiwoong.dto.MemberDTO;
 public interface MemberMapper {
 	
 	public MemberDTO findUser(String username);
+	
+	public int signUp(MemberDTO memberDTO);
 
 }
