@@ -35,12 +35,12 @@ public class MemberController {
 	}
 	@GetMapping("/member/signup")
 	public String memberSignUpForm() {
-		System.out.println("1단계 : 회원가입 폼 진입");
 		return "member/signup";
 	}
 	@PostMapping("/member/signup")
 	public String memberSignUp(@Valid MemberRequestDTO memberRequestDTO, Errors errors, Model model) {
 		
+		//회원가입 유효성 검사를 통과하지 못했을때..
 		if(errors.hasErrors()) {
 			model.addAttribute("memberRequestDTO", memberRequestDTO);
 			

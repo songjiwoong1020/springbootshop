@@ -27,6 +27,11 @@ public class MemberService implements UserDetailsService{
 	private final MemberMapper memberMapper;
 	private final PasswordEncoder passwordEncoder;
 	
+	/**
+	 * UserDetailsService인터페이스 구현 후 오버라이딩.
+	 * 시큐리티 사용을 위해 필요함. 유저 아이디로 로그인 처리.
+	 * @parma username
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberDTO memberDTO = memberMapper.findUser(username);
@@ -37,7 +42,7 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	/**
-	 * 유효성검사 에러메세지를 저장하는 Map 반환
+	 * 유효성검사 에러메세지를 저장하는 Map 반환.
 	 * @param errors
 	 * @return
 	 */
@@ -52,6 +57,10 @@ public class MemberService implements UserDetailsService{
 		return validatorResult;
 	}
 	
+	/**
+	 * 회원가입을 위한 쿼리
+	 * @param memberRequestDTO
+	 */
 	@Transactional
 	public void saveMember(MemberRequestDTO memberRequestDTO) {
 		//패스워드 암호화

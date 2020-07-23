@@ -36,7 +36,6 @@
             }
              else if(value == '1'){
                 $('#email2').val('');
-                //$('input[text][name=email2]').removeAttr("readonly"); 
                 $('#email2').attr("readonly", false); 
             } else {
                 $('#email2').attr("readonly", true); 
@@ -147,16 +146,16 @@
                             <td><p>생년월일/성별</p></td>
                             <td>
                                 <div class="inline fields">
-                                    <select id="birth1" name="birth1" style="width: 20%;" >
-                                       	<option value="1000">1000</option>
+                                    <select id="birth1" name="birth1" style="width: 20%;">
+                                   		<option th:each="num : ${#numbers.sequence(1920, 2020)}" th:value="${num}" th:text="${num}"></option>
                                     </select>
                                     년
                                     <select id="birth3" name="birth2" style="width: 20%;">
-                                        <option value="1000">10</option>
+                                        <option th:each="num : ${#numbers.sequence(1, 12)}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
                                     </select>
                                     월
                                     <select id="birth3" name="birth3" style="width: 20%;">
-                                        <option value="1000">10</option>
+                                        <option th:each="num : ${#numbers.sequence(1, 31)}" th:value="${numStat.count}" th:text="${numStat.count}"></option>
                                     </select>
                                     일
                                     &nbsp;&nbsp;&nbsp;
@@ -186,7 +185,7 @@
                             <td><p>이메일</p></td>
                             <td>
                                 <div class="inline fields">
-                                    <input type="text" id="email1" name="email1" th:value="${memberRequestDTO?.email1}">@<input type="text" id="email2" name="email2" th:value="${memberRequestDTO?.email2}">
+                                    <input type="text" id="email1" name="email1" th:value="${memberRequestDTO?.email1}">@<input type="text" id="email2" name="email2" th:value="${memberRequestDTO?.email2}" readonly>
                                     <select id="selectEmail">
                                         <option value=''>선택하세요</option>
                                         <option value="1">직접입력</option>

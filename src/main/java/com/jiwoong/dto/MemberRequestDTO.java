@@ -13,6 +13,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 
+ * @author songjiwoong
+ * 회원 가입시 입력 폼과 회원 테이블의 구조가 일치하지 않으므로 만튼 DTO.
+ * 회원 가입 홈 혹은 회원 테이블이 변하더라도 수정에 용이함.
+ */
 @Getter
 @Setter
 @ToString
