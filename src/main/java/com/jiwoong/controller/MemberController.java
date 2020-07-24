@@ -60,7 +60,7 @@ public class MemberController {
 		return "admin/login";
 	}
 	@GetMapping("/admin/main")
-	public String adminMain() {
+	public String adminIndex() {
 		return "admin/main";
 	}
 	@GetMapping("/board/board")

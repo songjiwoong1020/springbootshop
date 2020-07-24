@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>jiwoongAdmin</title>
+	<!-- Bootstrap -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+	<link href="vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
+	<link href="assets/styles.css" rel="stylesheet" media="screen">
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script>
+    $(function(){
+    });
+    </script>
+    
+	
 </head>
 <body>
-	<h2>Admin 메인 페이지. 어드민 권한 접근가능</h2>
+	<header th:replace="/admin/common/navbar.html"::"headerFragment"></header>
+	
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div th:replace="/admin/common/sidebar.html"::"sidebarFragment"></div>
+			<div class="span9" id="content">
+				<div class="row-fluid">
+					내용
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--/.fluid-container-->
+	<script src="vendors/jquery-1.9.1.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+	<script src="assets/scripts.js"></script>
 </body>
 </html>
