@@ -55,16 +55,9 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/admin/login")
-	public String adminLogin() {
-		return "admin/login";
-	}
-	@GetMapping("/admin/main")
-	public String adminIndex() {
-		return "admin/main";
-	}
+
 	@GetMapping("/board/board")
-	public String adminMain2() {
+	public String board() {
 		return "board/board";
 	}
 	@GetMapping("/member/denied")
