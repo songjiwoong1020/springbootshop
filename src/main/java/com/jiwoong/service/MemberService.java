@@ -36,8 +36,6 @@ public class MemberService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberDTO memberDTO = memberMapper.findUser(username);
 		
-		System.out.println("id=" + memberDTO.getUsername() + " pass=" + memberDTO.getPassword() + " role=" + memberDTO.getAuthorities());
-		
 		return new User(memberDTO.getUsername(), memberDTO.getPassword(), memberDTO.getAuthorities());
 	}
 	

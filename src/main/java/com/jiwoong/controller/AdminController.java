@@ -1,22 +1,38 @@
 package com.jiwoong.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.jiwoong.dto.MemberDTO;
+import com.jiwoong.service.AdminService;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 	
-	@GetMapping("/admin/login")
-	public String adminLogin() {
-		return "admin/login";
-	}
+	private final AdminService adminService;
+	
 	@GetMapping("/admin/main")
 	public String adminMain() {
 		return "admin/main";
 	}
 	@GetMapping("/admin/member")
-	public String adminMember() {
+	public String adminMember(Model model) {
+		
+		model.addAttribute("lists", adminService.allMember());
+		
 		return "admin/member";
+	}
+	@GetMapping("/admin/board")
+	public String adminBoard() {
+		
+		
+		return "admin/board";
 	}
 	
 

@@ -12,13 +12,10 @@
 	        <div class="nav-collapse collapse">
 	            <ul class="nav pull-right">
 	                <li class="dropdown">
-	                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> 누구누구님 접속중 <i class="caret"></i>
+	                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span th:session></span>누구누구님 접속중 <i class="caret"></i>
 	
 	                    </a>
 	                    <ul class="dropdown-menu">
-	                        <!-- <li>
-	                            <a tabindex="-1" href="#">Profile</a>
-	                        </li> -->
 	                        <li class="divider"></li>
 	                        <li>
 	                            <a tabindex="-1" href="login">Logout</a>
@@ -26,57 +23,27 @@
 	                    </ul>
 	                </li>
 	            </ul>
-	            <ul class="nav">
-	                <li class="active">
-	                    <a href="#">메인화면</a>
-	                </li>
-	                <li class="">
+	            <ul class="nav" id="tab">
+	                <li id="memberTab">
 	                    <a href="member">회원관리</a>
 	                </li>
-	                <li class="dropdown">
-	                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>
-	
-	                    </a>
-	                    <ul class="dropdown-menu">
-	                        <li>
-	                            <a tabindex="-1" href="#">Blog</a>
-	                        </li>
-	                        <li>
-	                            <a tabindex="-1" href="#">News</a>
-	                        </li>
-	                        <li>
-	                            <a tabindex="-1" href="#">Custom Pages</a>
-	                        </li>
-	                        <li>
-	                            <a tabindex="-1" href="#">Calendar</a>
-	                        </li>
-	                        <li class="divider"></li>
-	                        <li>
-	                            <a tabindex="-1" href="#">FAQ</a>
-	                        </li>
-	                    </ul>
-	                </li>
-	                <li class="dropdown">
-	                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
-	
-	                    </a>
-	                    <ul class="dropdown-menu">
-	                        <li>
-	                            <a tabindex="-1" href="#">User List</a>
-	                        </li>
-	                        <li>
-	                            <a tabindex="-1" href="#">Search</a>
-	                        </li>
-	                        <li>
-	                            <a tabindex="-1" href="#">Permissions</a>
-	                        </li>
-	                    </ul>
+	                <li id="boardTab">
+	                    <a href="board">게시판</a>
 	                </li>
 	            </ul>
 	        </div>
-        <!--/.nav-collapse -->
         </div>
     </div>
 </div>
 </header>
+<script>
+$(function(){
+	var url = window.location.href;
+	if(url.indexOf('/member') != -1){
+		$('#memberTab').addClass('active');
+	} else if(url.indexOf('/board') != -1){
+		$('#boardTab').addClass('active');
+	}
+});
+</script>
 </html>

@@ -65,7 +65,7 @@ public class MemberRequestDTO {
 		return email1 + "@" + email2;
 	}
 	private String getAddress() {
-		return address1 + address2;
+		return address1 + "(상세주소)" + address2;
 	}
 	
 	public MemberDTO toMemberDTO() {
