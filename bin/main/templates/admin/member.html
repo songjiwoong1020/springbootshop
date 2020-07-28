@@ -18,11 +18,9 @@
 	
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-
 </head>
 <body>
 	<header th:replace="/admin/common/navbar.html"::"headerFragment"></header>
-	
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div th:replace="/admin/common/memberSidebar.html"::"memberSidebarFragment"></div>
@@ -74,7 +72,6 @@
 											<td th:text="${list.phone}"></td>
 											<td th:text="${list.role}"></td>
 										</tr>
-										
 									</tbody>
 								</table>
 							</div>
@@ -84,7 +81,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!--/.fluid-container-->
 	<script src="vendors/jquery-1.9.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
