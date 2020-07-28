@@ -28,12 +28,20 @@ public class AdminController {
 		
 		return "admin/member";
 	}
+	@GetMapping("/admin/navbar")
+	public String adminNavbar() {
+		
+		return "admin/navbar";
+
+	}
+	@GetMapping("/admin/shop")
+	public String adminShop() {
+		
+		return "admin/shop";
+	}
 	@GetMapping("/admin/board")
 	public String adminBoard() {
 		
-		
 		return "admin/board";
 	}
-	
-
 }

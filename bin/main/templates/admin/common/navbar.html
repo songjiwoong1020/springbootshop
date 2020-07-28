@@ -16,9 +16,8 @@
 	
 	                    </a>
 	                    <ul class="dropdown-menu">
-	                        <li class="divider"></li>
 	                        <li>
-	                            <a tabindex="-1" href="login">Logout</a>
+	                            <a tabindex="-1" href="/logout">Logout</a>
 	                        </li>
 	                    </ul>
 	                </li>
@@ -26,6 +25,12 @@
 	            <ul class="nav" id="tab">
 	                <li id="memberTab">
 	                    <a href="member">회원관리</a>
+	                </li>
+	                <li id="navbarTab">
+	                    <a href="navbar">네비바</a>
+	                </li>
+	                <li id="shopTab">
+	                    <a href="shop">쇼핑몰</a>
 	                </li>
 	                <li id="boardTab">
 	                    <a href="board">게시판</a>
@@ -43,6 +48,10 @@ $(function(){
 		$('#memberTab').addClass('active');
 	} else if(url.indexOf('/board') != -1){
 		$('#boardTab').addClass('active');
+	} else if(url.indexOf('/shop') != -1){
+		$('#shopTab').addClass('active');
+	} else if(url.indexOf('/navbar') != -1){
+		$('#navbarTab').addClass('active');
 	}
 });
 </script>
