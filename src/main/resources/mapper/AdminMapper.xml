@@ -6,5 +6,9 @@
 	<select id="Allmember" resultType="com.jiwoong.dto.MemberDTO">
 		SELECT * FROM springbootshop_db.member;
 	</select>
+	<!-- 네비바 탭 갯수 조회  -->
+	<select id="navbarTabCount" resultType="int">
+		SELECT count(*) FROM springbootshop_db.navbar_Tab;
+	</select>
 	
 </mapper>

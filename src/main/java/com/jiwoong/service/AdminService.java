@@ -20,6 +20,13 @@ public class AdminService {
 		
 		return adminMapper.Allmember();
 	}
+
+	public int navbarTabCount() {
+		
+		return adminMapper.navbarTabCount();
+	}
+	
+	
 	
 	
 }
