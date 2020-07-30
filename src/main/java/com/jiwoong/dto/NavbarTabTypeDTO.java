@@ -10,6 +10,6 @@ public class NavbarTabTypeDTO {
 	private String name;
 	private String type;
 	private String url;
-	private String mName;
+	private String m_Name;
 
 }

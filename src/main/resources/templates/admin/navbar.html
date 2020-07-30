@@ -93,8 +93,20 @@
                          </div>
                          <div class="block-content collapse in">
                              <div class="span12">
+                             <br/>
                            		<ul style="list-style: none;">
-                           			<li class="navbarModi"><a href="javascript:">link</a></li>
+                           			
+                           			<!-- <li th:each="map : ${map}" class="navbarModi">
+                           				<a th:text="${map.key}" href="javascript:"></a>
+                           				<a th:each="list : ${map.value}" th:text="${list.mName}" href="javascript:"></a>
+                           			</li> -->
+                           			<li th:each="maps : ${map}" th:with="lists=${maps.value}" class="navbarModi">
+                           				<a th:text="${maps.key}" href="javascript:"></a>
+                           				<ul th:each="list : ${lists}" style="list-style: none;">
+                           					<li><a th:text="${list.m_Name}" href="javascript:"></a></li>
+                           				</ul>
+                           			</li>
+                           			
                            		</ul>
                              </div>
                          </div>
@@ -137,7 +149,7 @@
                                         <label class="control-label" for="cUrl">URL</label>
                                         <div class="controls">
                                           <input type="text" name="singleTabUrl">
-                                          <p class="help-block">url뒤에 쿼리형식으루 붙는 문자입니다. 특수문자 없이 영문만 입력해주세요.</p>
+                                          <p class="help-block">url뒤에 쿼리형식으루 붙는 문자입니다. 특수문자 없이 중복되지않게 영문만 입력해주세요.</p>
                                         </div>
                                       </div>
                                       <div class="control-group">
