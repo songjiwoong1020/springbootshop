@@ -31,15 +31,17 @@
         </button>
         <div class="collapse navbar-collapse mr-auto" id="collapsibleNavbar">
           <ul class="navbar-nav">
-            <li class="nav-item borderModify">
-              <a class="nav-link" href="#">Linkasdasd</a>
-            </li>
-            <li class="nav-item borderModify">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item borderModify">
-              <a class="nav-link" href="#">Link</a>
-            </li>
+          	<th:block th:each="list: ${lists}">
+	            <li th:if="${list.size()} == 1" class="nav-item borderModify">
+	              <a th:text="${list[0].tab_name}" class="nav-link" href="#"></a>
+	            </li>
+	            <li th:if="${list.size()} >= 2" class="nav-item dropdown borderModify">
+	              <a th:text="${list[0].tab_name}" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"></a>
+                    <div class="dropdown-menu">
+				        <a th:each="inList : ${list}" th:text="${inList.tab_mName}" class="dropdown-item" href="#"></a>
+			        </div>
+	            </li>
+            </th:block>
           </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">

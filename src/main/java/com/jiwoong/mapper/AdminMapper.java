@@ -11,6 +11,7 @@ import com.jiwoong.dto.MemberDTO;
 import com.jiwoong.dto.NavbarJoinDTO;
 import com.jiwoong.dto.NavbarTabDTO;
 import com.jiwoong.dto.NavbarTabTypeDTO;
+import com.jiwoong.dto.NavbarTabsDTO;
 
 @Repository
 @Mapper
@@ -18,21 +19,11 @@ public interface AdminMapper {
 	
 	public List<MemberDTO> allMember();
 	
-	public int navbarTabCount();
+	public List<NavbarTabsDTO> allNavbarTabs();
 	
-	public List<NavbarTabDTO> allNavbarTab();
+	public List<NavbarTabsDTO> nameNavbarTabs(String name);
+
+	public int countNavbarTabs();
 	
-	public List<NavbarTabTypeDTO> allNavbarTabType();
-
-	public List<NavbarTabTypeDTO> nameNavbarTabType(String name);
-	
-	public List<NavbarJoinDTO> joinNavbarTab();
-
-	public int saveNavbarTab(@Param("_tabName") String tabName,
-							@Param("_num") int num,
-							@Param("_tabType") String tabType);
-
-	public int saveNavbarTabType(@Param("_tabName") String tabName,
-								@Param("_singleTabUrl") String singleTabUrl,
-								@Param("_singleType") String singleType);
+	public int saveSingleNavbarTabs(String name, String param,  int num);
 }

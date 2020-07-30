@@ -14,6 +14,7 @@ import com.jiwoong.dto.MemberDTO;
 import com.jiwoong.dto.NavbarJoinDTO;
 import com.jiwoong.dto.NavbarTabDTO;
 import com.jiwoong.dto.NavbarTabTypeDTO;
+import com.jiwoong.dto.NavbarTabsDTO;
 import com.jiwoong.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,12 +41,12 @@ public class AdminController {
 	@GetMapping("/admin/navbar")
 	public String adminNavbar(Model model) {
 		
-		//List<NavbarTabDTO> list = adminService.allNavbarTab();
-		//int count = adminService.navbarTabCount();
-		Map<String, List<NavbarTabTypeDTO>> map = adminService.test();
-		//model.addAttribute("list", list);
-		model.addAttribute("map", map);
-		model.addAttribute("creatMsg", "탭은 최대 10개까지 생성가능합니다. 현재" + map.size() + "개의 탭이 생성되있습니다.");
+	
+		List<List<NavbarTabsDTO>> lists = adminService.navbarTabsList();
+		
+		
+		model.addAttribute("lists", lists);
+		model.addAttribute("creatMsg", "탭은 최대 10개까지 생성가능합니다. 현재" + lists.size() + "개의 탭이 생성되있습니다.");
 		
 		return "admin/navbar";
 	}
@@ -56,15 +57,12 @@ public class AdminController {
 		String tabType = request.getParameter("tabType");
 		
 		if(tabType.equals("single")) {
-			String singleTabUrl = request.getParameter("singleTabUrl");
+			String param = request.getParameter("singleTabUrl");
 			String singleType = request.getParameter("singleType");
 			
-			System.out.println("tabName=" + tabName);
-			System.out.println("tabType=" + tabType);
-			System.out.println("singleTabUrl=" + singleTabUrl);
-			System.out.println("singleType=" + singleType);
-			adminService.saveSingleTab(tabName, tabType, singleTabUrl, singleType);
-			return "redirect:admin/navbar";
+	
+			adminService.saveSingleTab(tabName, param);
+			return "redirect:navbar";
 			
 		} else {
 			System.out.println("멀티");

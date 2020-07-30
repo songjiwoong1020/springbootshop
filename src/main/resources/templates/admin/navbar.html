@@ -95,18 +95,12 @@
                              <div class="span12">
                              <br/>
                            		<ul style="list-style: none;">
-                           			
-                           			<!-- <li th:each="map : ${map}" class="navbarModi">
-                           				<a th:text="${map.key}" href="javascript:"></a>
-                           				<a th:each="list : ${map.value}" th:text="${list.mName}" href="javascript:"></a>
-                           			</li> -->
-                           			<li th:each="maps : ${map}" th:with="lists=${maps.value}" class="navbarModi">
-                           				<a th:text="${maps.key}" href="javascript:"></a>
-                           				<ul th:each="list : ${lists}" style="list-style: none;">
-                           					<li><a th:text="${list.m_Name}" href="javascript:"></a></li>
+                           			<li th:each="list, i: ${lists}" class="navbarModi">
+                           				<a th:text="${list[0].tab_name}" href="#"></a>
+                           				<ul th:each="inList : ${list}" style="list-style: none;">
+                           					<li><a th:if="${inList.tab_mName} != null" th:text="${inList.tab_mName}" href="javascript:"></a></li>
                            				</ul>
                            			</li>
-                           			
                            		</ul>
                              </div>
                          </div>

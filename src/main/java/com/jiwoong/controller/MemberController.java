@@ -1,5 +1,6 @@
 package com.jiwoong.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jiwoong.dto.MemberDTO;
 import com.jiwoong.dto.MemberRequestDTO;
+import com.jiwoong.dto.NavbarTabsDTO;
+import com.jiwoong.service.AdminService;
 import com.jiwoong.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,9 +27,13 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final AdminService adminService;
 	
 	@GetMapping("/")
-	public String main() {
+	public String main(Model model) {
+		
+		List<List<NavbarTabsDTO>> lists = adminService.navbarTabsList();
+		model.addAttribute("lists", lists);
 		return "/main";
 	}
 	@GetMapping("/member/login")

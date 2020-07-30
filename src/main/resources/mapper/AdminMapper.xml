@@ -4,34 +4,23 @@
 	
 	<!-- 전체 회원 조회  -->
 	<select id="allMember" resultType="com.jiwoong.dto.MemberDTO">
-		SELECT * FROM springbootshop_db.member;
+		SELECT * FROM springbootshop_db.member
 	</select>
-	<!-- 네비바 탭 갯수 조회  -->
-	<select id="navbarTabCount" resultType="int">
-		SELECT count(*) FROM springbootshop_db.navbar_Tab;
-	</select>
-	<!-- 네비바 탭 전체 조회  -->
-	<select id="allNavbarTab" resultType="com.jiwoong.dto.NavbarTabDTO">
-		SELECT * FROM springbootshop_db.navbar_Tab AS t ORDER BY t.order;;
-	</select>
-	<!-- 네비바 탭 타입 전체 조회  -->
-	<select id="allNavbarTabType" resultType="com.jiwoong.dto.NavbarTabTypeDTO">
-		SELECT * FROM springbootshop_db.navbar_Tab_Type;
-	</select>
-	<!-- 네비바 탭 타입 이름으로 조회  -->
-	<select id="nameNavbarTabType" resultType="com.jiwoong.dto.NavbarTabTypeDTO">
-		SELECT * FROM springbootshop_db.navbar_Tab_Type WHERE name = #{name};
-	</select>
-	<!-- 네비바 탭, 탭 타입 전체 조회  -->
-	<select id="joinNavbarTab" resultType="com.jiwoong.dto.NavbarJoinDTO">
-		SELECT t.*, tt.type type_bs, tt.url, tt.m_Nane FROM navbar_Tab AS t JOIN navbar_Tab_Type AS tt ON t.name = tt.name ORDER BY t.order;
-	</select>
-	<!-- 네비바 단일 탭 추가  -->
-	<insert id="saveNavbarTab">
-		INSERT INTO navbar_Tab VALUES (#{_tabName}, #{_num}, 'show', #{_tabType});
-	</insert>
-	<insert id="saveNavbarTabType">
-		INSERT INTO navbar_Tab_Type VALUES (#{_tabName}, #{_singleType}, #{_singleTabUrl}, NULL);
+	
+	<select id="allNavbarTabs" resultType="com.jiwoong.dto.NavbarTabsDTO">
+		SELECT * FROM navbar_Tabs GROUP BY tab_order ORDER BY tab_order
+	</select> 
+	
+	<select id="nameNavbarTabs" resultType="com.jiwoong.dto.NavbarTabsDTO">
+		SELECT * FROM navbar_Tabs WHERE tab_name=#{name} ORDER BY tab_order
+	</select> 
+
+	<select id="countNavbarTabs" resultType="int">
+		SELECT COUNT(DISTINCT tab_order) FROM navbar_Tabs;
+	</select> 
+	
+	<insert id="saveSingleNavbarTabs">
+		INSERT INTO navbar_Tabs VALUES (#{param1}, #{param2}, #{param3}, 'show', null)
 	</insert>
 	
 </mapper>
