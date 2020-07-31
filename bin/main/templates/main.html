@@ -3,56 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>jiwoong</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <style>
 	body{
 		background-color : #DADADA;
 	}
-  .borderModify{
-    width: 100px;
-    border-right:1px gray solid;
-    text-align: center;
-  }
-  .borderModify:first-child{
-    border-left:1px gray solid;
-  }
-  
 </style>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">songjiwoong1020</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse mr-auto" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-          	<th:block th:each="list: ${lists}">
-	            <li th:if="${list.size()} == 1" class="nav-item borderModify">
-	              <a th:text="${list[0].tab_name}" class="nav-link" href="#"></a>
-	            </li>
-	            <li th:if="${list.size()} >= 2" class="nav-item dropdown borderModify">
-	              <a th:text="${list[0].tab_name}" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"></a>
-                    <div class="dropdown-menu">
-				        <a th:each="inList : ${list}" th:text="${inList.tab_mName}" class="dropdown-item" href="#"></a>
-			        </div>
-	            </li>
-            </th:block>
-          </ul>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a class="nav-link" href="./member/login"><b>로그인</b></a>
-          </li>
-          <li>
-            <a class="nav-link" href="./member/signup"><b>회원가입</b></a>
-          </li>
-        </ul>
-      </nav>
+  <header th:replace="common/navbar.html"::"headerFragment"></header>
   <h2>메인 화면임.</h2>
   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

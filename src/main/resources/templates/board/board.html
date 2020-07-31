@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>게시판 페이지</title>
     <!-- css 가져오기 -->
-    <link rel="stylesheet" type="text/css" href="semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../semantic.min.css">
 
     <style type="text/css">
         body {
@@ -32,6 +32,7 @@
 </head>
 
 <body>
+	<header th:replace="/common/navbar.html"::"headerFragment"></header>
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui teal image header">

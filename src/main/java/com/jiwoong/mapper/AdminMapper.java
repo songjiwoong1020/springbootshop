@@ -1,16 +1,11 @@
 package com.jiwoong.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.jiwoong.dto.MemberDTO;
-import com.jiwoong.dto.NavbarJoinDTO;
-import com.jiwoong.dto.NavbarTabDTO;
-import com.jiwoong.dto.NavbarTabTypeDTO;
 import com.jiwoong.dto.NavbarTabsDTO;
 
 @Repository
@@ -25,5 +20,7 @@ public interface AdminMapper {
 
 	public int countNavbarTabs();
 	
-	public int saveSingleNavbarTabs(String name, String param,  int num);
+	public int saveSingleNavbarTabs(String name, String param,  int num, String type);
+
+	public int saveMultiNavbarTabs(String name, String param,  int num, String type, String mName);
 }

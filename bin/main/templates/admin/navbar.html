@@ -35,6 +35,7 @@
   }
 </style>
 <script>
+var multiIndex = 2;
   $(function(){
 	  $('#tabcreateButton').mouseover(function(){
       var tip = $(this).attr('title');
@@ -48,6 +49,13 @@
     });
 	  
 	  
+    $('#tabcreateButton').on('click', function(){
+        $('#createTab').show(1000);
+    })
+    $('#tabCreateCloseButton').on('click', function(){
+        $('#createTab').hide(1000);
+    })
+    
     $('input[name="tabType"]').on('click', function(){
       var value = $('input[name="tabType"]:checked').val();
       if(value == 'single'){
@@ -58,6 +66,41 @@
         $('#singleTab').hide();
       }
     })
+    $('#multiIndex').val(multiIndex);
+	$('#addTabButton').on('click', function(){
+		++multiIndex;
+		console.log(multiIndex);
+		$('#multiBlock').append(`<div class="control-group" style="border-top:1px solid; padding-top: 10px;">
+									<label class="control-label">이름</label>
+									<div class="controls">
+										<input type="text" name="multiName` + multiIndex + `">
+										<p class="help-block">드롭다운 된 탭의 이름을 입력하세요.</p>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">구분 문자</label>
+									<div class="controls">
+										<input type="text" name="multiTabParam` + multiIndex + `">
+										<p class="help-block">해당 탭을 구분 지을 부분입니다. 특수문자 없이 중복되지않게 영문만 입력해주세요.</p>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">유형</label>
+									<div class="controls">
+										<label style="float: left; margin-right: 20px;">
+										<input type="radio" name="multiBoardorShop` + multiIndex + `" value="board"> 게시판
+										</label>
+										<label class="uniform">
+										<input type="radio" name="multiBoardorShop` + multiIndex + `" value="shop" > 쇼핑몰
+										</label>
+										 <p class="help-block">해당 탭을 쇼핑몰 형식으로 사용할지 게시판 형식으로 사용할지 선택합니다.</p>
+									</div>
+								</div>`);
+		$('#multiIndex').val(multiIndex);
+    	 
+     });
+    	 
+
   });
 </script>
 </head>
@@ -107,10 +150,10 @@
                     </div>
 				</div>
 				<!-- 생성 -->
-				  <div class="row-fluid">
+				  <div id="createTab" class="row-fluid" style="display: none;">
                      <div class="block">
                          <div class="navbar navbar-inner block-header">
-                             <div class="muted pull-right" style="padding: 0;"><button class="btn" type="button">닫기</button></div>
+                             <div class="muted pull-right" style="padding: 0;"><button id="tabCreateCloseButton" class="btn" type="button">닫기</button></div>
                          </div>
                          <div class="block-content collapse in">
                              <div class="span9">
@@ -126,7 +169,7 @@
                                      </div>
                                      
                                      <div class="control-group">
-                                       <label class="control-label">탭 토글 사용여부</label>
+                                       <label class="control-label">탭 드롭다운 여부</label>
                                        <div class="controls">
                                          <label style="float: left; margin-right: 20px;">
                                           <input type="radio" name="tabType" value="single"> 단일
@@ -134,26 +177,26 @@
                                          <label class="uniform">
                                           <input type="radio" name="tabType" value="multi" > 다중
                                          </label>
-                                          <p class="help-block">탭을 하나의 게시판 혹은 쇼핑몰만 사요 할것인지, 아니면 하나의 탭에서 여러개로 나뉠지 선택합니다.</p>
+                                          <p class="help-block">탭을 하나의 게시판 혹은 쇼핑몰만 사용 할것인지, 아니면 하나의 탭에서 여러개로 나뉠지 선택합니다.</p>
                                        </div>
                                      </div>
                                      <!-- 단일 -->
                                      <div id="singleTab" style="display: none;">
                                       <div class="control-group">
-                                        <label class="control-label" for="cUrl">URL</label>
+                                        <label class="control-label">구분 문자</label>
                                         <div class="controls">
-                                          <input type="text" name="singleTabUrl">
-                                          <p class="help-block">url뒤에 쿼리형식으루 붙는 문자입니다. 특수문자 없이 중복되지않게 영문만 입력해주세요.</p>
+                                          <input type="text" name="singleTabParam">
+                                          <p class="help-block">해당 탭을 구분 지을 부분입니다. 특수문자 없이 중복되지않게 영문만 입력해주세요.</p>
                                         </div>
                                       </div>
                                       <div class="control-group">
                                         <label class="control-label">유형</label>
                                         <div class="controls">
                                           <label style="float: left; margin-right: 20px;">
-                                          <input type="radio" name="singleType" value="board"> 게시판
+                                          <input type="radio" name="singleBoardorShop" value="board"> 게시판
                                           </label>
                                           <label class="uniform">
-                                          <input type="radio" name="singleType" value="shop" > 쇼핑몰
+                                          <input type="radio" name="singleBoardorShop" value="shop" > 쇼핑몰
                                           </label>
                                           <p class="help-block">단일 탭을 쇼핑몰 형식으로 사용할지 게시판 형식으로 사용할지 선택합니다.</p>
                                         </div>
@@ -162,52 +205,42 @@
                                      <!-- 다중 -->
                                      <div id="multiTab" style="display: none;">
                                       <div class="control-group">
-                                        <label class="control-label">갯수</label>
-                                        <div class="controls">
-                                          <select class="chzn-select">
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                          </select>
-                                        </div>
+                                      	<button id="addTabButton" class="btn" type="button">추가</button>
                                       </div>
-
-                                      <div class="control-group" style="border-top:1px solid; padding-top: 10px;">
-                                        <label class="control-label">이름 </label>
-                                        <div class="controls">
-                                          <input type="text" name="multiName">
-                                          <p class="help-block">토글된 탭의 이름을 입력하세요.</p>
-                                        </div>
-                                      </div>
-                                        <div class="control-group">
-                                          <label class="control-label" for="cUrl">URL</label>
-                                          <div class="controls">
-                                            <input type="text" name="multiUrl">
-                                            <p class="help-block">url뒤에 쿼리형식으루 붙는 문자입니다. 특수문자 없이 영문만 입력해주세요.</p>
-                                          </div>
-                                        </div>
-                                        <div class="control-group">
-                                          <label class="control-label">유형</label>
-                                          <div class="controls">
-                                            <label style="float: left; margin-right: 20px;">
-                                            <input type="radio" name="multiType" value="board"> 게시판
-                                            </label>
-                                            <label class="uniform">
-                                            <input type="radio" name="multiType" value="shop" > 쇼핑몰
-                                            </label>
-                                            <p class="help-block">단일 탭을 쇼핑몰 형식으로 사용할지 게시판 형식으로 사용할지 선택합니다.</p>
-                                          </div>
-                                        </div>
+									  <div id="multiBlock">
+									  <th:block th:each="num : ${#numbers.sequence(1, 2)}">
+	                                      <div class="control-group" style="border-top:1px solid; padding-top: 10px;">
+	                                        <label class="control-label">이름</label>
+	                                        <div class="controls">
+	                                          <input type="text" th:name="multiName+${num}">
+	                                          <p class="help-block">드롭다운 된 탭의 이름을 입력하세요.</p>
+	                                        </div>
+	                                      </div>
+	                                        <div class="control-group">
+	                                          <label class="control-label">구분 문자</label>
+	                                          <div class="controls">
+	                                            <input type="text" th:name="multiTabParam+${num}">
+	                                            <p class="help-block">해당 탭을 구분 지을 부분입니다. 특수문자 없이 중복되지않게 영문만 입력해주세요.</p>
+	                                          </div>
+	                                        </div>
+	                                        <div class="control-group">
+	                                          <label class="control-label">유형</label>
+	                                          <div class="controls">
+	                                            <label style="float: left; margin-right: 20px;">
+	                                            <input type="radio" th:name="multiBoardorShop+${num}" value="board"> 게시판
+	                                            </label>
+	                                            <label class="uniform">
+	                                            <input type="radio" th:name="multiBoardorShop+${num}" value="shop" > 쇼핑몰
+	                                            </label>
+	                                            <p class="help-block">해당 탭을 쇼핑몰 형식으로 사용할지 게시판 형식으로 사용할지 선택합니다.</p>
+	                                          </div>
+	                                        </div>
+	                                    </div>
+                                        <th:block>
                                     </div>
+                                    <input type="hidden" name="multiIndex" id="multiIndex"/>
                                      <div class="form-actions">
                                        <button type="submit" class="btn btn-primary">생성하기</button>
-                                       <button type="button" class="btn">취소</button>
                                      </div>
                                    </fieldset>
                                  </form>

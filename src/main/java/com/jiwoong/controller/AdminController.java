@@ -1,7 +1,7 @@
 package com.jiwoong.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,10 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.jiwoong.dto.MemberDTO;
-import com.jiwoong.dto.NavbarJoinDTO;
-import com.jiwoong.dto.NavbarTabDTO;
-import com.jiwoong.dto.NavbarTabTypeDTO;
 import com.jiwoong.dto.NavbarTabsDTO;
 import com.jiwoong.service.AdminService;
 
@@ -46,7 +42,7 @@ public class AdminController {
 		
 		
 		model.addAttribute("lists", lists);
-		model.addAttribute("creatMsg", "탭은 최대 10개까지 생성가능합니다. 현재" + lists.size() + "개의 탭이 생성되있습니다.");
+		model.addAttribute("creatMsg", "탭은 최대 10개까지 생성가능합니다. 현재" + lists.size() + "개의 탭이 생성되어있습니다.");
 		
 		return "admin/navbar";
 	}
@@ -57,18 +53,22 @@ public class AdminController {
 		String tabType = request.getParameter("tabType");
 		
 		if(tabType.equals("single")) {
-			String param = request.getParameter("singleTabUrl");
-			String singleType = request.getParameter("singleType");
-			
+			String param = request.getParameter("singleTabParam");
+			String type = request.getParameter("singleBoardorShop");
 	
-			adminService.saveSingleTab(tabName, param);
+			adminService.saveSingleTab(tabName, param, type);
 			return "redirect:navbar";
 			
 		} else {
-			System.out.println("멀티");
+			int multiIndex = Integer.parseInt(request.getParameter("multiIndex"));
+			for(int i=1; i<=multiIndex; i++) {
+				String param = request.getParameter("multiTabParam" + i);
+				String type = request.getParameter("multiBoardorShop" + i);
+				String mName = request.getParameter("multiName" + i);
+				adminService.saveMultiTab(tabName, param, type, mName);
+			}
+			return "redirect:navbar";
 		}
-		
-		return "admin/navbar";
 	}
 	@GetMapping("/admin/shop")
 	public String adminShop() {

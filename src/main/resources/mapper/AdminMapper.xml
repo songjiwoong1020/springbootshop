@@ -16,11 +16,15 @@
 	</select> 
 
 	<select id="countNavbarTabs" resultType="int">
-		SELECT COUNT(DISTINCT tab_order) FROM navbar_Tabs;
+		SELECT COUNT(DISTINCT tab_order) FROM navbar_Tabs
 	</select> 
 	
 	<insert id="saveSingleNavbarTabs">
-		INSERT INTO navbar_Tabs VALUES (#{param1}, #{param2}, #{param3}, 'show', null)
+		INSERT INTO navbar_Tabs VALUES (#{param1}, #{param2}, #{param3}, 'show', #{param4}, null)
+	</insert>
+
+	<insert id="saveMultiNavbarTabs">
+		INSERT INTO navbar_Tabs VALUES (#{param1}, #{param2}, #{param3}, 'show', #{param4}, #{param5})
 	</insert>
 	
 </mapper>

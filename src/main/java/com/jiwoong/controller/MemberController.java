@@ -32,8 +32,7 @@ public class MemberController {
 	@GetMapping("/")
 	public String main(Model model) {
 		
-		List<List<NavbarTabsDTO>> lists = adminService.navbarTabsList();
-		model.addAttribute("lists", lists);
+		model.addAttribute("lists", adminService.navbarTabsList());
 		return "/main";
 	}
 	@GetMapping("/member/login")
@@ -63,10 +62,6 @@ public class MemberController {
 	}
 	
 
-	@GetMapping("/board/board")
-	public String board() {
-		return "board/board";
-	}
 	@GetMapping("/member/denied")
 	public String memberDenied() {
 		return "member/denied";

@@ -11,6 +11,7 @@ public class NavbarTabsDTO {
 	private String tab_param;
 	private String tab_order;
 	private String tab_view;
+	private String tab_type;
 	private String tab_mName;
 	
 }
