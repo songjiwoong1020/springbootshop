@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jiwoong.dto.NavbarTabsDTO;
 import com.jiwoong.service.AdminService;
+import com.jiwoong.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	
 	private final AdminService adminService;
+	
 	
 	@GetMapping("/admin/main")
 	public String adminMain() {

@@ -1,5 +1,6 @@
 package com.jiwoong.service;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,5 +66,23 @@ public class MemberService implements UserDetailsService{
 		memberRequestDTO.setPass(passwordEncoder.encode(memberRequestDTO.getPass()));
 		
 		memberMapper.signUp(memberRequestDTO.toMemberDTO());
+	}
+	
+	/**
+	 * 
+	 * @param principal
+	 * @return
+	 */
+	public String joinMember(Principal principal) {
+		
+		String joinName = null;
+		try {
+			joinName = principal.getName();
+		}
+		catch (Exception e) {
+			
+		}
+		
+		return joinName;
 	}
 }

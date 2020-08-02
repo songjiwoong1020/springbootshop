@@ -11,9 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import security.MyLoginSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
-public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	//시큐리티에서 제공하는 암호화방식
 	@Bean
@@ -27,17 +29,16 @@ public class SecuirtyConfiguration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
 			.antMatchers("/member").permitAll()
-			.antMatchers("/board/**").hasAnyRole("MEMBER", "ADMIN")
+			//.antMatchers("/board/**").hasAnyRole("MEMBER", "ADMIN")
 			.antMatchers("/admin/**").hasRole("ADMIN")
 		//.and()
 		//	.csrf()//csrf에 대해서는 더 공부가 필요..
-		//.and()
-		//	.httpBasic()
 		.and()
 			.formLogin()
 			.loginPage("/member/login")
 			.defaultSuccessUrl("/")
 			.failureUrl("/member/login?error")
+			.successHandler(new MyLoginSuccessHandler())
 			.permitAll()
 		.and()
 			.logout()
