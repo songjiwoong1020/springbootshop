@@ -27,7 +27,7 @@
         </button>
         <div class="collapse navbar-collapse mr-auto" id="collapsibleNavbar">
           <ul class="navbar-nav">
-          	<th:block th:each="list: ${lists}">
+          	<th:block th:each="list: ${navbarLists}">
 	            <li th:if="${list.size()} == 1" class="nav-item borderModify">
 	              <a th:text="${list[0].tab_name}" class="nav-link" th:href="@{/{type}/{param}(type=${list[0].tab_type}, param=${list[0].tab_param})}"></a>
 	            </li>
@@ -40,7 +40,7 @@
             </th:block>
           </ul>
         </div>
-        <ul th:if="${session.userID} == null" class="nav navbar-nav navbar-right">
+        <ul sec:authorize="isAuthenticated() == false" class="nav navbar-nav navbar-right">
           <li>
             <a class="nav-link" href="/member/login"><b>로그인</b></a>
           </li>
@@ -48,15 +48,14 @@
             <a class="nav-link" href="/member/signup"><b>회원가입</b></a>
           </li>
         </ul>
-        <ul th:if="${session.userID} != null" class="nav navbar-nav navbar-right">
-          <li>
-            <b th:text="${session.userID}"></b>
-          </li>
+        <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
           <li>
             <a class="nav-link" href="#"><b>마이페이지</b></a>
           </li>
           <li>
-            <a class="nav-link" th:href="@{logout}"><b>로그아웃</b></a>
+            <a class="nav-link" onclick="document.getElementById('logout-form').submit();"><b>로그아웃</b></a>
+            <form id="logout-form" th:action="@{/logout}" method="post">
+            </form>
           </li>
         </ul>
       </nav>

@@ -32,7 +32,7 @@ public class MemberController {
 	@GetMapping("/")
 	public String main(Model model) {
 		
-		model.addAttribute("lists", adminService.navbarTabsList());
+		model.addAttribute("navbarLists", adminService.navbarTabsList());
 		return "/main";
 	}
 	@GetMapping("/member/login")

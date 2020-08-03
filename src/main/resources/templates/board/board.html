@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>게시판 페이지</title>
+    <title>jiwoong</title>
     <!-- css 가져오기 -->
     <link rel="stylesheet" type="text/css" href="../semantic.min.css">
 
@@ -36,21 +36,41 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <h2 class="ui teal image header">
-                게시판 페이지
+                게시판
             </h2>
             <div class="ui large form">
                 <div class="ui stacked segment">
-                    <a href="/coco/write_bbs"><button class="ui fluid large teal submit button">게시글 작성하기</button></a>
+                    <a th:href="@{write(bname=${bname})}"><button class="ui fluid large teal submit button">게시글 작성하기</button></a>
                     <table class="ui celled table">
+                    	<colgroup>
+                    		<col width="10%">
+                    		<col width="46%">
+                    		<col width="17%">
+                    		<col width="17%">
+                    		<col width="10%">
+                    	</colgroup>
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>제목</th>
-                                <th>등록자</th>
+                                <th>작성자</th>
                                 <th>등록일</th>
+                                <th>조회수</th>
                             </tr>
                         </thead>
                         <tbody id="list">
+                            <tr th:if="${boardLists.size()} == 0">
+                                <th colspan="5">등록된 글이 없습니다.</th>
+                            </tr>
+                            <th:block th:if="${boardLists.size()} != 0">
+                            <tr th:each="list : ${boardLists}">
+                                <th th:text="${list.idx}"></th>
+                                <th th:text="${list.name}"></th>
+                                <th th:text="${list.id}"></th>
+                                <th th:text="${list.postdate}"></th>
+                                <th th:text="${list.hits}"></th>
+                            </tr>
+                            </th:block>
                         </tbody>
                     </table>
                 </div>

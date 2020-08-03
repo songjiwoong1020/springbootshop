@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	//타임리프
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	//유효성 검사

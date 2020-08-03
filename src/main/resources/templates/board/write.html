@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>게시글 작성하기</title>
+    <title>jiwoong</title>
     <!-- css 가져오기 -->
-    <link rel="stylesheet" type="text/css" href="semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../semantic.min.css">
 
     <style type="text/css">
         body {
@@ -33,24 +33,26 @@
             <h2 class="ui teal image header">
                 게시글 작성하기
             </h2>
-            <form class="ui large form">
+            <form th:action="@{/board/writeAction}" method="post" class="ui large form">
+            <input type="hidden" sec:authentication="name" name="id"></input>
+            <input type="hid-den" name="bname" th:value="${bname}"/>
                 <div class="ui stacked segment">
                     <div class="field">
-                        <input type="text" id="b_title" placeholder="게시글 제목" autocomplete="off" autofocus="autofocus">
+                        <input type="text" name="name" id="b_title" placeholder="게시글 제목" autocomplete="off" autofocus="autofocus">
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
-                            <textarea style="resize: vertical;" id="b_content" placeholder="게시글 내용" rows="8"></textarea>
+                            <textarea name="content" style="resize: vertical;" id="b_content" placeholder="게시글 내용" rows="8"></textarea>
                         </div>
                     </div>
-                    <div class="ui fluid large teal submit button" id="write_bbs">게시글 작성하기</div>
+                    <button type="submit" class="ui fluid large teal submit button" id="write_bbs">게시글 작성하기</button>
                 </div>
 
                 <div class="ui error message"></div>
 
             </form>
 
-            <a href="/coco/main"><button class="ui fluid large teal submit button">뒤로가기</button></a>
+            <a href="javascript:history.go();"><button class="ui fluid large teal submit button">뒤로가기</button></a>
         </div>
     </div>
    

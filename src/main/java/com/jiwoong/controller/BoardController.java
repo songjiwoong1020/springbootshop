@@ -1,11 +1,15 @@
 package com.jiwoong.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jiwoong.service.AdminService;
+import com.jiwoong.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,11 +18,42 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	
 	private final AdminService adminService;
+	private final BoardService boardService;
 
-	@GetMapping("/board/{param}")
-	public String board(Model model, @PathVariable String param) {
-		model.addAttribute("lists", adminService.navbarTabsList());
+	@GetMapping("/board/{bname}")
+	public String boardList(Model model, @PathVariable String bname, HttpServletRequest request) {
+		
+		model.addAttribute("request", request);
+		
+		boardService.list(model);
+
+		
+		model.addAttribute("navbarLists", adminService.navbarTabsList());
+		
+		
 		return "board/board";
 	}
 	
+	@GetMapping("/board/write")
+	public String boardWrite(Model model, HttpServletRequest request) {
+		
+		String bname = request.getParameter("bname");
+		model.addAttribute("banme", bname);
+		System.out.println(bname);
+		
+		return "board/write";
+	}
+	
+	@PostMapping("/board/writeAction")
+	public String boardWriteAction(Model model, HttpServletRequest request) {
+		System.out.println("진입");
+		String bname = request.getParameter("bname");
+		model.addAttribute("request", request);
+		
+		String id = request.getParameter("id");
+		System.out.println(id);
+		boardService.write(model);
+		
+		return "redirect:board/" + bname;
+	}
 }

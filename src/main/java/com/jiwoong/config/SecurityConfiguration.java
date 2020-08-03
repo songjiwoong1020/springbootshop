@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import security.MyLoginSuccessHandler;
+import com.jiwoong.security.MyLoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -38,11 +38,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.loginPage("/member/login")
 			.defaultSuccessUrl("/")
 			.failureUrl("/member/login?error")
-			.successHandler(new MyLoginSuccessHandler())
+			//.successHandler(new MyLoginSuccessHandler()) 미사용
 			.permitAll()
 		.and()
 			.logout()
-			.logoutUrl("/member/login?logout")
 			.logoutSuccessUrl("/")
 		.and();
 			//.exceptionHandling()
