@@ -11,7 +11,7 @@
 	</select>
 	
 	<insert id="write">
-		INSERT INTO board (id, name, content) VALUES (#{param1}, #{param2}, #{param3})
+		INSERT INTO board (id, name, content, bname) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
 </mapper>

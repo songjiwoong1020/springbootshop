@@ -25,12 +25,12 @@ public class BoardService {
 		Map<String, Object> paramMap = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)paramMap.get("request");
 		
+		String bname = (String) model.getAttribute("bname");
 		
-		String bname = request.getParameter("bname");
-		
+
 		int totalRecordCount = boardMapper.getTotalCount(bname);
 		
-		int pageSize = 1;//Integer.parseInt(request.getParameter("pageSize"));
+		int pageSize = 5;//Integer.parseInt(request.getParameter("pageSize"));
 		int blockPage = 2;//Integer.parseInt(request.getParameter("blockPage"));
 		
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -44,9 +44,13 @@ public class BoardService {
 		
 		for(BoardDTO dto : lists) {
 			String temp = dto.getContent().replace("\r\n", "<br/>");
+			String sub = dto.getPostdate().substring(0, 10);
 			dto.setContent(temp);
+			dto.setPostdate(sub);
+			
+			System.out.println(dto.getId());
+			System.out.println(dto.getName());
 		}
-		
 		model.addAttribute("boardLists", lists);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("nowPage", nowPage);
@@ -58,11 +62,12 @@ public class BoardService {
 		Map<String, Object> paramMap = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)paramMap.get("request");
 		
-		String id = request.getParameter("id");
+		String id = (String)model.getAttribute("id");
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
+		String bname = request.getParameter("bname");
 		
-		boardMapper.write(id, name, content);
+		boardMapper.write(id, name, content, bname);
 		
 	}
 

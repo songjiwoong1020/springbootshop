@@ -1,5 +1,7 @@
 package com.jiwoong.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,10 @@ public class BoardController {
 	@GetMapping("/board/{bname}")
 	public String boardList(Model model, @PathVariable String bname, HttpServletRequest request) {
 		
+		
+		
 		model.addAttribute("request", request);
+		model.addAttribute("bname", bname);
 		
 		boardService.list(model);
 
@@ -39,21 +44,23 @@ public class BoardController {
 		
 		String bname = request.getParameter("bname");
 		model.addAttribute("banme", bname);
-		System.out.println(bname);
+		
 		
 		return "board/write";
 	}
 	
 	@PostMapping("/board/writeAction")
-	public String boardWriteAction(Model model, HttpServletRequest request) {
-		System.out.println("진입");
+	public String boardWriteAction(Model model, HttpServletRequest request, Principal principal) {
+		
+		String id = principal.getName();
 		String bname = request.getParameter("bname");
+		model.addAttribute("id", id);
 		model.addAttribute("request", request);
 		
-		String id = request.getParameter("id");
-		System.out.println(id);
+		
+
 		boardService.write(model);
 		
-		return "redirect:board/" + bname;
+		return "redirect:" + bname;
 	}
 }

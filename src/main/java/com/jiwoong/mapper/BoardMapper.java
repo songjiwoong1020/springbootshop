@@ -15,6 +15,6 @@ public interface BoardMapper {
 	
 	public List<BoardDTO> list(String bname, int start, int end);
 	
-	public int write(String id, String name, String content);
+	public int write(String id, String name, String content, String bname);
 
 }
