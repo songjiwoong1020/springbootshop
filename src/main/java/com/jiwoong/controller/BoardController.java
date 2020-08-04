@@ -45,6 +45,8 @@ public class BoardController {
 		String bname = request.getParameter("bname");
 		model.addAttribute("banme", bname);
 		
+		model.addAttribute("navbarLists", adminService.navbarTabsList());
+		
 		
 		return "board/write";
 	}
@@ -63,4 +65,22 @@ public class BoardController {
 		
 		return "redirect:" + bname;
 	}
+	/*
+	@PostMapping("/board/summernoteImageUpload")
+	@ResponseBody
+	public Map<String, Object> summernoteImageUpload(HttpServletRequest request,
+													@RequestParam("file") MultipartFile multipartFile) {
+		
+		Map<String, Object> object = new HashMap<String, Object>();
+
+		String fileRoot = request.getSession().getServletContext().getRealPath("/summernoteImg");
+		String originalFileName = multipartFile.getOriginalFilename();
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		String savedFileName = UUID.randomUUID() + extension;
+		
+		
+		return object; 
+	}
+	*/
 }

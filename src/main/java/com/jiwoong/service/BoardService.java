@@ -42,14 +42,19 @@ public class BoardService {
 		
 		List<BoardDTO> lists = boardMapper.list(bname, start, end);
 		
+		int vNum = 0;
+		int countNum = 0;
 		for(BoardDTO dto : lists) {
+			
+			vNum = totalRecordCount - (((nowPage - 1) * pageSize) + countNum++);
+			
 			String temp = dto.getContent().replace("\r\n", "<br/>");
 			String sub = dto.getPostdate().substring(0, 10);
 			dto.setContent(temp);
 			dto.setPostdate(sub);
 			
-			System.out.println(dto.getId());
-			System.out.println(dto.getName());
+			dto.setVNum(vNum);
+			
 		}
 		model.addAttribute("boardLists", lists);
 		model.addAttribute("totalPage", totalPage);

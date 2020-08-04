@@ -44,7 +44,6 @@ public class AdminController {
 		
 		
 		model.addAttribute("lists", lists);
-		model.addAttribute("creatMsg", "탭은 최대 10개까지 생성가능합니다. 현재" + lists.size() + "개의 탭이 생성되어있습니다.");
 		
 		return "admin/navbar";
 	}

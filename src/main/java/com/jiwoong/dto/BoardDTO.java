@@ -14,5 +14,8 @@ public class BoardDTO {
 	private String bname;
 	private String hits;
 	private String postdate;
+	
+	/////////////////////
+	private int vNum;
 
 }

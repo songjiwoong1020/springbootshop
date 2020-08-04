@@ -132,7 +132,7 @@ var multiIndex = 2;
 					<div class="block">
                          <div class="navbar navbar-inner block-header">
                              <div class="muted pull-left">네비바 상태</div>
-                             <div class="pull-right" style="padding: 0;"><button id="tabcreateButton" th:attr="title=${creatMsg}" type="button" class="btn">생성</button></div>
+                             <div class="pull-right" style="padding: 0;"><button id="tabcreateButton" th:attr="title=|탭은 최대 10개까지 생성가능합니다. 현재 ${lists.size()}개의 탭이 생성되어있습니다.|" type="button" class="btn">생성</button></div>
                          </div>
                          <div class="block-content collapse in">
                              <div class="span12">
