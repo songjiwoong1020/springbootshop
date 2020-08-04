@@ -17,7 +17,7 @@
   
 </style>
 	<div class="jumbotron text-center" style="margin-bottom:0">
-	  <h1></h1>
+	  <h1 th:text="|${bname} 게시판 아님 쇼핑몰|"></h1>
 	  <p>Resize this responsive page to see the effect!</p> 
 	</div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,14 +27,14 @@
         </button>
         <div class="collapse navbar-collapse mr-auto" id="collapsibleNavbar">
           <ul class="navbar-nav">
-          	<th:block th:each="list: ${navbarLists}">
+          	<th:block th:each="list : ${navbarLists}">
 	            <li th:if="${list.size()} == 1" class="nav-item borderModify">
 	              <a th:text="${list[0].tab_name}" class="nav-link" th:href="@{/{type}/{param}(type=${list[0].tab_type}, param=${list[0].tab_param})}"></a>
 	            </li>
 	            <li th:if="${list.size()} >= 2" class="nav-item dropdown borderModify">
 	              <a th:text="${list[0].tab_name}" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"></a>
                     <div class="dropdown-menu">
-				        <a th:each="inList : ${list}" th:text="${inList.tab_mName}" class="dropdown-item" href="#"></a>
+				        <a th:each="inList : ${list}" th:text="${inList.tab_mName}" class="dropdown-item" th:href="@{/{type}/{param}(type=${inList.tab_type}, param=${inList.tab_param})}"></a>
 			        </div>
 	            </li>
             </th:block>
