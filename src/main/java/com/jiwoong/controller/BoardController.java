@@ -80,12 +80,14 @@ public class BoardController {
 	public JSONPObject summernoteImageUpload(HttpServletRequest request,
 													@RequestParam("file") MultipartFile multipartFile) {
 		
+		//1.서버의 경로를 얻어온다.
 		String fileRoot = request.getSession().getServletContext().getRealPath("/summernoteImg");
 		System.out.println("context=" + request.getSession().getServletContext().getContextPath());
 		System.out.println("fileRoot=" + fileRoot);
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("multipartFile.getName()=" + multipartFile.getName());
 		try {
+			//2.파일을 업로드 한다.
 			multipartFile.transferTo(new File(fileRoot + multipartFile.getOriginalFilename()));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
