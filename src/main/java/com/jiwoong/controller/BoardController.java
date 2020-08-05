@@ -1,15 +1,24 @@
 package com.jiwoong.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jiwoong.service.AdminService;
 import com.jiwoong.service.BoardService;
 
@@ -65,22 +74,31 @@ public class BoardController {
 		
 		return "redirect:" + bname;
 	}
-	/*
+	
 	@PostMapping("/board/summernoteImageUpload")
 	@ResponseBody
-	public Map<String, Object> summernoteImageUpload(HttpServletRequest request,
+	public JSONPObject summernoteImageUpload(HttpServletRequest request,
 													@RequestParam("file") MultipartFile multipartFile) {
 		
-		Map<String, Object> object = new HashMap<String, Object>();
-
 		String fileRoot = request.getSession().getServletContext().getRealPath("/summernoteImg");
-		String originalFileName = multipartFile.getOriginalFilename();
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		System.out.println("context=" + request.getSession().getServletContext().getContextPath());
+		System.out.println("fileRoot=" + fileRoot);
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("multipartFile.getName()=" + multipartFile.getName());
+		try {
+			multipartFile.transferTo(new File(fileRoot + multipartFile.getOriginalFilename()));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		String savedFileName = UUID.randomUUID() + extension;
-		
-		
+		String uploadFile = fileRoot + "/" + multipartFile.getOriginalFilename();
+		System.out.println("uploadFile=" + uploadFile);
+		map.put("url", uploadFile);
+		JSONPObject object = new JSONPObject("url", uploadFile);
+
 		return object; 
 	}
-	*/
+	
 }

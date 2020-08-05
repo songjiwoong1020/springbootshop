@@ -31,9 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/member").permitAll()
 			//.antMatchers("/board/**").hasAnyRole("MEMBER", "ADMIN")
 			.antMatchers("/admin/**").hasRole("ADMIN")
-		//.and()
-		//	.csrf()//csrf에 대해서는 더 공부가 필요..
 		.and()
+			//.csrf().disable()//csrf에 대해서는 더 공부가 필요..
+		//.and()
 			.formLogin()
 			.loginPage("/member/login")
 			.defaultSuccessUrl("/")
@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.and()
 			.logout()
 			.logoutSuccessUrl("/")
-		.and();
+		.and().cors().and().csrf().disable();
 			//.exceptionHandling()
 			//.accessDeniedPage("/member/denied"); //403페이지 처리
 	}
