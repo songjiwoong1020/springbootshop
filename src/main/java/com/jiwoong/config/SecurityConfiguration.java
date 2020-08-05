@@ -32,8 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			//.antMatchers("/board/**").hasAnyRole("MEMBER", "ADMIN")
 			.antMatchers("/admin/**").hasRole("ADMIN")
 		.and()
-			//.csrf().disable()//csrf에 대해서는 더 공부가 필요..
-		//.and()
 			.formLogin()
 			.loginPage("/member/login")
 			.defaultSuccessUrl("/")
