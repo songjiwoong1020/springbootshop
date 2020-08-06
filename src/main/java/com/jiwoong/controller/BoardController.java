@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.filechooser.FileSystemView;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -78,34 +79,36 @@ public class BoardController {
 	
 	private final WebApplicationContext webApplicationContext;
 	
+	/**
+	 * 스프링 부트의 경우 내장 톰캣을 사용하는데, 특별한 설정이 없으면 자동으로 temp폴더에 업로드가 진행된다.
+	 * 
+	 * @param request
+	 * @param multipartFile
+	 * @return
+	 */
 	@PostMapping("/board/summernoteImageUpload")
 	@ResponseBody
-	public JSONPObject summernoteImageUpload(HttpServletRequest request,
+	public Map<String, Object> summernoteImageUpload(HttpServletRequest request,
 													@RequestParam("file") MultipartFile multipartFile) {
-		
-		//1.서버의 경로를 얻어온다.
-		String fileRoot = request.getServletContext().getRealPath("/static/upload");
-//		System.out.println(webApplicationContext.getServletContext().getRealPath("/")); 
-//		System.out.println("context=" + request.getSession().getServletContext().getContextPath());
-		System.out.println(request.getContextPath());
-		System.out.println("fileRoot=" + fileRoot);
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("multipartFile.getName()=" + multipartFile.getName());
+		
+		String fileRoot = request.getSession().getServletContext().getRealPath("/");
+//		String fileRoot = "/summernoteImg/";
+		
+		System.out.println("fileRoot=" + fileRoot);
+		System.out.println("multipartFile.getName()=" + multipartFile.getOriginalFilename());
 		try {
-			//2.파일을 업로드 한다.
 			multipartFile.transferTo(new File(fileRoot + multipartFile.getOriginalFilename()));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		String uploadFile = fileRoot + multipartFile.getOriginalFilename();
 		System.out.println("uploadFile=" + uploadFile);
+		
 		map.put("url", uploadFile);
-		JSONPObject object = new JSONPObject("url", uploadFile);
-
-		return object; 
+		return map; 
 	}
 	
 }

@@ -126,7 +126,7 @@ $(function(){
 			processData : false,
 			enctype: 'multipart/form-data',
 			success : function(data){
-				//alert(data.url);
+				alert(data.url);
 				$("input[type='hidden'][name='thumbnail']").val(data.url);
 				$('#summernote').summernote('insertImage', data.url);
 			},

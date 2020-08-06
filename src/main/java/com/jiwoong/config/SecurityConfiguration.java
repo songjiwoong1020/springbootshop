@@ -41,7 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.and()
 			.logout()
 			.logoutSuccessUrl("/")
-		.and().cors().and().csrf().disable();
+		.and()
+			.cors().and().csrf().disable();
 			//.exceptionHandling()
 			//.accessDeniedPage("/member/denied"); //403페이지 처리
 	}
