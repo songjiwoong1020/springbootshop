@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jiwoong</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+	#boardTable{
+		width: 1000px;
+	}
+	#boardTable tr{
+		border-top: 1px solid gray;
+	}
+	#boardTable tr:last-child{
+		border-bottom: 1px solid gray;
+	}
+	#boardTable #name{
+		border-top: 1.2px solid black;
+		border-bottom: 1.2px solid black;
+		text-align: center;
+		font-size: 1.2em;
+	 
+	}
+	#boardTable #content{
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+</style>
+<body>
+	<header th:replace="/common/navbar.html"::"headerFragment"></header>
+    <div class="container">
+        <div class="row">
+            <table id="boardTable" class="table">
+            	<colgroup>
+            		<col width="7%">
+            		<col width="20%">
+            		<col width="*">
+            		<col width="5%">
+            		<col width="7%">
+            	</colgroup> 
+                <tbody>
+                    <tr>
+                        <th id="name" colspan="5" th:text=${boardDTO.name}></th>
+                    </tr>
+                    <tr>
+                        <th>date</th>
+                        <td th:text=${boardDTO.postdate}></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="border: 0px; padding: 0px; margin: 0px;">
+                        <th>name</th>
+                        <td th:text=${boardDTO.id}></td>
+                        <td></td>
+                        <th style="text-align: right;">hits</th>
+                        <td th:text=${boardDTO.hits} style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td id="content" colspan="5" th:text=${boardDTO.content}></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            <!-- 우측정렬 왜 안되지 -->
+            <input id="deleteButton" type="button" class="btn btn-primary" onclick="location.href=@{delete(idx=${boardDTO.idx})};"/>
+            </div>
+            
+            
+         	<form name="deleteFrm">
+				<input type="hid-den" name="idx" th:value="${boardDTO.idx}" />
+				<input type="hid-den" name="bname" th:value="${boardDTO.bname}" />
+			</form>
+        </div>
+    </div>
+ 	<script>
+ 		
+ 		$(function(){
+ 			$('#deleteButton').click(function(){
+ 				var c = confirm("삭제할까요?");
+				if(!c){
+					return false;
+				}
+ 			});
+ 		});
+
+	</script>
+</body>
+</html>

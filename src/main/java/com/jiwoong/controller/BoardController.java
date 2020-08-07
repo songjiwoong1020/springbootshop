@@ -50,10 +50,9 @@ public class BoardController {
 		return "board/board";
 	}
 	
-	@GetMapping("/board/write")
-	public String boardWrite(Model model, HttpServletRequest request) {
+	@GetMapping("/board/{bname}/write")
+	public String boardWrite(@PathVariable String bname, Model model, HttpServletRequest request) {
 		
-		String bname = request.getParameter("bname");
 		model.addAttribute("banme", bname);
 		
 		model.addAttribute("navbarLists", adminService.navbarTabsList());
@@ -62,22 +61,41 @@ public class BoardController {
 		return "board/write";
 	}
 	
-	@PostMapping("/board/writeAction")
-	public String boardWriteAction(Model model, HttpServletRequest request, Principal principal) {
+	@PostMapping("/board/{bname}/writeAction")
+	public String boardWriteAction(@PathVariable String bname, Model model, HttpServletRequest request, Principal principal) {
 		
 		String id = principal.getName();
-		String bname = request.getParameter("bname");
 		model.addAttribute("id", id);
+		model.addAttribute("bname", bname);
 		model.addAttribute("request", request);
 		
 		
 
 		boardService.write(model);
 		
-		return "redirect:" + bname;
+		return "redirect:/board/" + bname;
 	}
 	
-	private final WebApplicationContext webApplicationContext;
+	@GetMapping("/board/{bname}/view")
+	public String boardView(@PathVariable String bname, Model model, HttpServletRequest request) {
+		
+		model.addAttribute("request", request);
+		
+		boardService.view(model);
+		
+		
+		return "board/view";
+	}
+	
+	@GetMapping("/board/{bname}/delete")
+	public String Delete(@PathVariable String bname, Model model, HttpServletRequest request ) {
+		
+		model.addAttribute("request", request);
+		
+		boardService.delete(model);
+		
+		return "redirect:/board/" + bname;
+	}
 	
 	/**
 	 * 파일 업로드 부분에서 굉장히 많이 삽질했다.
@@ -87,15 +105,15 @@ public class BoardController {
 	 * 
 	 * 삽질 과정
 	 * getRalPath를 통해 업로드를 진행할 폴더 경로를 입력해 주었었다.
-	 * 그 결과 temp폴더로 이동되는데 이 임시 폴더가 계속 변하고 안에 내용물이 없는 상황이 발생.
+	 * 그 결과 temp폴더로 이동되는데 이 임시 폴더가 계속 변하고 안에 내용물이 없는 상황이 발생.(스프링부트의 이슈?일 수도 있어보인다.)
 	 * 여러가지 시도를 해본 결과 확실한 답은 찾지 못했으나 우선 파일 업로드에 대해 여러가지 가능하다는걸 알게되었다.
 	 * 첫번째로 다른 서버에 올리는 방법(AWS S3가 대표적인듯 하다) 이 방법이 제일 괜찮아 보이지만 여기에 시간을 너무 많이써서 보류.
 	 * 두번째로 DB에 직접 저장하는 방법이 있지만 현실적으로 불가능.
 	 * 세번째로 서버가 파일을 직접 가지고 있는 방법이다. 이게 제일 보편적으로 사용되는 방법인것 같다.
 	 * 와스(톰캣)에 올리는 방법이 getRealPath를 통해 저장되는 방법으로 보여지는데 그 이유는 모르겠다.
-	 * 프로젝트 내부, 외부에도 올릴 수 있는데 각각 내부에 올릴시 많은 이슈가 발생한다고 한다. 외부에 올릴시에는 접근을 못하는 상황이 발생한다.
+	 * 프로젝트 내부, 외부에도 올릴 수 있는데 각각 내부에 올릴시 많은 이슈가 발생한다고 한다. 외부에 올릴시에는 접근을 못하는 상황이 발생한다.(방법은 있겠지만..)
 	 * 또, temp폴더에 관해서 알아보았는데 파일 업로드시 임시폴더가 생성되어서 임시폴더에 먼저 올라가는데에는 많은 이유가 있다고한다.
-	 * 이상 파일 업로드에 관해 알아보았다.
+	 * 
 	 * 나는 여기서 첫번째 방법을 채택할 계획이긴 하나 핑계지만 우선은 시간관계상.. 프로젝트를 EC2에 올릴때 같이 처리하겠다.. 비슷한 맥락일거라 생각해서..
 	 * 그렇다면 우선은 다른 방법을 채택해야 한다. 나는 RDS를 이용하고있어서 각 로컬에서만 가능한 방법은 적합하지 않다. 가능은 하겠지만 매우 번거롭다.
 	 * 깃을 통해 프로젝트를 진행하는 지금  채택 할 수 있는 방법은 프로젝트 내부에 파일을 업로드 시켜서 프로젝트 내부에서
@@ -116,14 +134,14 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> summernoteImageUpload(HttpServletRequest request,
 													@RequestParam("file") MultipartFile multipartFile) {
+		
+		//임시 메소드
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		String fileRoot = request.getSession().getServletContext().getRealPath("/summernoteImg/");
-//		String fileRoot = "webapp/summernoteImg/";
 
 		
-		System.out.println("fileRoot=" + fileRoot);
-		System.out.println("multipartFile.getName()=" + multipartFile.getOriginalFilename());
 		try {
 			multipartFile.transferTo(new File(fileRoot + multipartFile.getOriginalFilename()));
 		} catch (IllegalStateException e) {
@@ -132,7 +150,6 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		String uploadFile = "/" + multipartFile.getOriginalFilename();
-		System.out.println("uploadFile=" + uploadFile);
 		
 		map.put("url", uploadFile);
 		return map; 

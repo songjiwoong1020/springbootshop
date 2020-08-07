@@ -59,7 +59,6 @@ public class BoardService {
 		model.addAttribute("boardLists", lists);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("bname", bname);
 
 	}
 	
@@ -70,9 +69,35 @@ public class BoardService {
 		String id = (String)model.getAttribute("id");
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
-		String bname = request.getParameter("bname");
+		String bname = (String) model.getAttribute("bname");
 		
 		boardMapper.write(id, name, content, bname);
+		
+	}
+	
+	public void view(Model model) {
+		Map<String, Object> paramMap = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)paramMap.get("request");
+		
+		String idx = request.getParameter("idx");
+			
+		
+		BoardDTO boardDTO = boardMapper.view(idx);
+		
+		model.addAttribute("boardDTO", boardDTO);
+		
+	}
+	
+	public void delete(Model model) {
+		Map<String, Object> paramMap = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)paramMap.get("request");
+		
+		String idx = request.getParameter("idx");
+		
+		
+		BoardDTO boardDTO = boardMapper.delete(idx);
+		
+		model.addAttribute("boardDTO", boardDTO);
 		
 	}
 

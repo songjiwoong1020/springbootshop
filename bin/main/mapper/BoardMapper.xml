@@ -14,4 +14,12 @@
 		INSERT INTO board (id, name, content, bname) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
+	<select id="view" resultType="com.jiwoong.dto.BoardDTO">
+		SELECT * FROM board WHERE idx = #{param1}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM board WHERE idx = #{param1}
+	</delete>
+	
 </mapper>

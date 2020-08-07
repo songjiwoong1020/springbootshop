@@ -17,4 +17,8 @@ public interface BoardMapper {
 	
 	public int write(String id, String name, String content, String bname);
 
+	public BoardDTO view(String idx);
+
+	public BoardDTO delete(String idx);
+
 }

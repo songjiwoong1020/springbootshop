@@ -108,6 +108,7 @@
     </div> -->
     <div class="container">
     <hr />
+    <div class="row">
 	    <table id="boardTable" class="table table-bordered">
 			<colgroup>
 				<col width="10%">
@@ -132,7 +133,7 @@
 				<th:block th:if="${boardLists.size()} != 0">
 				<tr th:each="list : ${boardLists}">
 					<td th:text="${list.vNum}"></td>
-					<td style="text-align: left;"><a th:text="${list.name}" th:href="@{#}"></a></td>
+					<td style="text-align: left;"><a th:text="${list.name}" th:href="@{{bname}/view(idx=${list.idx}, bname=${bname})}"></a></td>
 					<td th:text="${list.id}"></td>
 					<td th:text="${list.postdate}"></td>
 					<td th:text="${list.hits}"></td>
@@ -140,10 +141,11 @@
 				</th:block>
 			</tbody>
 	    </table>
-	    <div style="text-align: right;">
-	    <a th:href="@{write}" class="btn btn-primary">글쓰기</a>
+	    <div>
+	    <!-- 우측정렬 왜 안되지 -->
+	    <a th:href="@{{bname}/write(bname=${bname})}" class="btn btn-primary">글쓰기</a>
 	    </div>
+    </div>
 	</div>
 </body>
-
 </html>
