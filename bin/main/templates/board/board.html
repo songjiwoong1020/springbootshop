@@ -12,26 +12,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <style type="text/css">
-/*         body {
-            background-color: #DADADA;
-        } */
-/* 
-        body>.grid {
-            height: 100%;
-        }
-
-        .image {
-            margin-top: -100px;
-        }
-
-        .column {
-            max-width: 1000px;
-        }
-
-        .view_btn {
-            cursor: pointer;
-        } */
 		#boardTable td, #boardTable th{
 			padding: 3px;
 			text-align: center;
@@ -41,111 +23,54 @@
 
 <body>
 	<header th:replace="/common/navbar.html"::"headerFragment"></header>
-   <!--  <div class="ui middle aligned center aligned grid">
-        <div class="column">
-            <h2 class="ui teal image header">
-                
-            </h2>
-            <div class="ui large form">
-                <div class="ui stacked segment">
-                    <a th:href="@{write(bname=${bname})}"><button class="ui fluid large teal submit button">게시글 작성하기</button></a>
-                    <table class="ui celled table">
-                    	<colgroup>
-                    		<col width="10%">
-                    		<col width="46%">
-                    		<col width="17%">
-                    		<col width="17%">
-                    		<col width="10%">
-                    	</colgroup>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>등록일</th>
-                                <th>조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody id="list">
-                            <tr th:if="${boardLists.size()} == 0">
-                                <th colspan="5">등록된 글이 없습니다.</th>
-                            </tr>
-                            <th:block th:if="${boardLists.size()} != 0">
-                            <tr th:each="list : ${boardLists}">
-                                <th th:text="${list.vNum}"></th>
-                                <th><a th:text="${list.name}" th:href="@{#}"></a></th>
-                                <th th:text="${list.id}"></th>
-                                <th th:text="${list.postdate}"></th>
-                                <th th:text="${list.hits}"></th>
-                            </tr>
-                            </th:block>
-                        </tbody>
-                    </table>
-                </div>
 
-                <div class="ui error message"></div>
-
-            </div>
-        </div>
-    </div> 
-
-    <div class="ui modal" id='view_modal'>
-        <i class="close">x</i>
-        <div class="header" id="b_title">
-            
-        </div>
-        <div class="content">
-            <div class="description">
-            	<p style = "text-align: right" id = "b_review"></p>
-            	<div id = 'b_content'></div>
-            </div>
-        </div>
-        <div class="actions">
-            <div class="ui black deny button">
-                닫기
-            </div>
-        </div>
-    </div> -->
     <div class="container">
     <hr />
-    <div class="row">
-	    <table id="boardTable" class="table table-bordered">
-			<colgroup>
-				<col width="10%">
-				<col width="46%">
-				<col width="17%">
-				<col width="17%">
-				<col width="10%">
-			</colgroup>
-			<thead class="thead-light">
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>날짜</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody id="list">
-				<tr th:if="${boardLists.size()} == 0">
-					<td colspan="5">등록된 글이 없습니다.</td>
-				</tr>
-				<th:block th:if="${boardLists.size()} != 0">
-				<tr th:each="list : ${boardLists}">
-					<td th:text="${list.vNum}"></td>
-					<td style="text-align: left;"><a th:text="${list.name}" th:href="@{{bname}/view(idx=${list.idx}, bname=${bname})}"></a></td>
-					<td th:text="${list.id}"></td>
-					<td th:text="${list.postdate}"></td>
-					<td th:text="${list.hits}"></td>
-				</tr>
-				</th:block>
-			</tbody>
-	    </table>
-	    <div>
-	    <!-- 우측정렬 왜 안되지 -->
-	    <a th:href="@{{bname}/write(bname=${bname})}" class="btn btn-primary">글쓰기</a>
+	    <div class="row">
+		    <table id="boardTable" class="table table-bordered">
+				<colgroup>
+					<col width="10%">
+					<col width="46%">
+					<col width="17%">
+					<col width="17%">
+					<col width="10%">
+				</colgroup>
+				<thead class="thead-light">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>날짜</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody id="list">
+					<tr th:if="${boardLists.size()} == 0">
+						<td colspan="5">등록된 글이 없습니다.</td>
+					</tr>
+					<th:block th:if="${boardLists.size()} != 0">
+					<tr th:each="list : ${boardLists}">
+						<td th:text="${list.vNum}"></td>
+						<td style="text-align: left;"><a th:text="${list.name}" th:href="@{{bname}/view(idx=${list.idx}, bname=${bname})}"></a></td>
+						<td th:text="${list.id}"></td>
+						<td th:text="${list.postdate}"></td>
+						<td th:text="${list.hits}"></td>
+					</tr>
+					</th:block>
+				</tbody>
+		    </table>
+		    <div>
+		    <!-- 우측정렬 왜 안되지 -->
+		    <a th:href="@{{bname}/write(bname=${bname})}" class="btn btn-primary">글쓰기</a>
+		    
+		    </div>
 	    </div>
-    </div>
+	    <div class="row">
+	    	<ul class="pagination justify-content-center">
+	    		<th:block th:utext="${pagingImg}"></th:block>
+	    		
+	    	</ul>
+		</div>
 	</div>
 </body>
 </html>

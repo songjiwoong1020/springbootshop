@@ -1,6 +1,5 @@
 package com.jiwoong.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +10,11 @@ import org.springframework.ui.Model;
 
 import com.jiwoong.dto.BoardDTO;
 import com.jiwoong.mapper.BoardMapper;
+import com.jiwoong.util.EnvFileReader;
+import com.jiwoong.util.PagingUtil;
 
 import lombok.RequiredArgsConstructor;
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +32,10 @@ public class BoardService {
 
 		int totalRecordCount = boardMapper.getTotalCount(bname);
 		
-		int pageSize = 5;//Integer.parseInt(request.getParameter("pageSize"));
-		int blockPage = 2;//Integer.parseInt(request.getParameter("blockPage"));
+		int pageSize = Integer.parseInt(EnvFileReader.getValue("SpringBbsInit.properties", 
+				"springBoard.pageSize"));
+		int blockPage = Integer.parseInt(EnvFileReader.getValue("SpringBbsInit.properties", 
+				"springBoard.blockPage"));
 		
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
 		
@@ -41,6 +45,9 @@ public class BoardService {
 		int end = pageSize;
 		
 		List<BoardDTO> lists = boardMapper.list(bname, start, end);
+		
+		String pagingImg = PagingUtil.pagingImg(totalRecordCount, pageSize, blockPage, nowPage,
+					bname);
 		
 		int vNum = 0;
 		int countNum = 0;
@@ -56,9 +63,9 @@ public class BoardService {
 			dto.setVNum(vNum);
 			
 		}
+		model.addAttribute("pagingImg", pagingImg);
 		model.addAttribute("boardLists", lists);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("nowPage", nowPage);
+
 
 	}
 	
@@ -71,7 +78,10 @@ public class BoardService {
 		String content = request.getParameter("content");
 		String bname = (String) model.getAttribute("bname");
 		
-		boardMapper.write(id, name, content, bname);
+		for(int i=1; i<100; i++) {
+			
+			boardMapper.write(id, name+i, content+i, bname);
+		}
 		
 	}
 	
@@ -95,9 +105,9 @@ public class BoardService {
 		String idx = request.getParameter("idx");
 		
 		
-		BoardDTO boardDTO = boardMapper.delete(idx);
+		boardMapper.delete(idx);
 		
-		model.addAttribute("boardDTO", boardDTO);
+		
 		
 	}
 

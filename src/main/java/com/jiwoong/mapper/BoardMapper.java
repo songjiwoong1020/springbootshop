@@ -19,6 +19,6 @@ public interface BoardMapper {
 
 	public BoardDTO view(String idx);
 
-	public BoardDTO delete(String idx);
+	public void delete(String idx);
 
 }
