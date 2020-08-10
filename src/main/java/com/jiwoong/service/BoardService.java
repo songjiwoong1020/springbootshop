@@ -78,10 +78,8 @@ public class BoardService {
 		String content = request.getParameter("content");
 		String bname = (String) model.getAttribute("bname");
 		
-		for(int i=1; i<100; i++) {
 			
-			boardMapper.write(id, name+i, content+i, bname);
-		}
+		boardMapper.write(id, name, content, bname);
 		
 	}
 	

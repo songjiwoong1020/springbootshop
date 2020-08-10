@@ -2,8 +2,25 @@
 <html xmlns="http://www.thymeleaf.org">
 <div th:fragment ="navbarSidebarFragment" class="span3" id="sidebar">
     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-        <li class="active">
-            <a href="board"><i class="icon-chevron-right"></i>네비바 관리</a>
+        <li id="ctrl" class="active">
+            <a href="navbarCtrl"><i class="icon-chevron-right"></i>네비바 상태/관리</a>
+        </li>
+        <li id="disable" class="">
+            <a href="navbarDisable"><i class="icon-chevron-right"></i>네비바 비활성화/삭제</a>
         </li>
     </ul>
 </div>
+
+<script>
+$(function(){
+	var url = window.location.href;
+	if(url.indexOf('Ctrl') != -1){
+		$('#ctrl').addClass('active');
+		$('#disable').removeClass('active');
+	} else if(url.indexOf('Disable') != -1){
+		$('#disable').addClass('active');
+		$('#ctrl').removeClass('active');
+	}
+
+});
+</script>

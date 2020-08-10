@@ -1,6 +1,5 @@
 package com.jiwoong.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jiwoong.dto.NavbarTabsDTO;
 import com.jiwoong.service.AdminService;
-import com.jiwoong.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,8 +34,8 @@ public class AdminController {
 		return "admin/member";
 	}
 	
-	@GetMapping("/admin/navbar")
-	public String adminNavbar(Model model) {
+	@GetMapping("/admin/navbarCtrl")
+	public String adminNavbarCtrl(Model model) {
 		
 	
 		List<List<NavbarTabsDTO>> lists = adminService.navbarTabsList();
@@ -47,7 +45,19 @@ public class AdminController {
 		
 		return "admin/navbar";
 	}
-	@PostMapping("/admin/navbar")
+	
+	@GetMapping("/admin/navbarDisable")
+	public String adminNavbarDisable(Model model) {
+		
+		
+		List<List<NavbarTabsDTO>> lists = adminService.navbarTabsList();
+		
+		
+		model.addAttribute("lists", lists);
+		
+		return "admin/navbar";
+	}
+	@PostMapping("/admin/navbarCtrl")
 	public String adminNavbarPost(HttpServletRequest request) {
 		
 		String tabName = request.getParameter("tabName");

@@ -122,7 +122,7 @@ $(function(){
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : "summernoteImageUpload",
+			url : "/board/summernoteImageUpload",
 			dataType : "json",
 			cache : false,
 			contentType : false,
@@ -130,7 +130,7 @@ $(function(){
 			enctype: 'multipart/form-data',
 			success : function(data){
 				alert(data.url);
-				$("input[type='hidden'][name='thumbnail']").val(data.url);
+				//$("input[type='hidden'][name='thumbnail']").val(data.url);
 				$('#summernote').summernote('insertImage', data.url);
 			},
 			error : function(data){

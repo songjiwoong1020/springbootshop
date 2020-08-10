@@ -136,11 +136,10 @@ public class BoardController {
 													@RequestParam("file") MultipartFile multipartFile) {
 		
 		//임시 메소드
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		String fileRoot = request.getSession().getServletContext().getRealPath("/summernoteImg/");
-
+		System.out.println("fileRoot=" + fileRoot);
 		
 		try {
 			multipartFile.transferTo(new File(fileRoot + multipartFile.getOriginalFilename()));
@@ -149,10 +148,9 @@ public class BoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String uploadFile = "/" + multipartFile.getOriginalFilename();
-		
+		String uploadFile = "/summernoteImg/" + multipartFile.getOriginalFilename();
+		System.out.println("uploadFile=" + uploadFile);
 		map.put("url", uploadFile);
 		return map; 
 	}
-	
 }

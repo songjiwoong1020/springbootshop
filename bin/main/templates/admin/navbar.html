@@ -248,6 +248,35 @@ var multiIndex = 2;
                          </div>
                      </div>
                  </div>
+                 <!-- 수정 -->
+                 <div id="modifyTab" class="row-fluid" style="display: no-ne;">
+                     <div class="block">
+                         <div class="navbar navbar-inner block-header">
+                             <div class="muted pull-right" style="padding: 0;"><button id="tabCreateCloseButton" class="btn" type="button">닫기</button></div>
+                         </div>
+                         <div class="block-content collapse in">
+                             <div class="span9">
+                                 <form th:action="@{#}" method="post" class="form-horizontal">
+                                   <fieldset>
+                                     <legend>수정하기</legend>
+                                     <div class="control-group">
+                                       <label class="control-label">탭 이름 </label>
+                                       <div class="controls">
+                                         <input type="text" name="tabName">
+                                         <p class="help-block">수정 할 탭의 이름을 입력하세요.</p>
+                                       </div>
+                                     </div>
+                                    <input type="hidden" name="multiIndex" id="multiIndex"/>
+                                     <div class="form-actions">
+                                       <button type="submit" class="btn btn-primary">생성하기</button>
+                                     </div>
+                                   </fieldset>
+                                 </form>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
 			</div>
 		</div>
 	</div>
