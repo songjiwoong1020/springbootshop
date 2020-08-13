@@ -30,11 +30,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardController {
 	
-	private final AdminService adminService;
 	private final BoardService boardService;
 
 	@GetMapping("/board/{bname}")
-	public String boardList(Model model, @PathVariable String bname, HttpServletRequest request) {
+	public String boardListUseAop(Model model, @PathVariable String bname, HttpServletRequest request) {
 		
 		
 		
@@ -44,18 +43,16 @@ public class BoardController {
 		boardService.list(model);
 
 		
-		model.addAttribute("navbarLists", adminService.navbarTabsList());
+		
 		
 		
 		return "board/board";
 	}
 	
 	@GetMapping("/board/{bname}/write")
-	public String boardWrite(@PathVariable String bname, Model model, HttpServletRequest request) {
+	public String boardWriteUseAop(@PathVariable String bname, Model model, HttpServletRequest request) {
 		
 		model.addAttribute("banme", bname);
-		
-		model.addAttribute("navbarLists", adminService.navbarTabsList());
 		
 		
 		return "board/write";

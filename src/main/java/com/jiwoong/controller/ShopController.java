@@ -15,14 +15,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShopController {
 	
-	private final AdminService adminService;
 	
 	@GetMapping("/shop/{bname}")
-	public String boardList(Model model, @PathVariable String bname, HttpServletRequest request) {	
-	
+	public String boardListUseAop(Model model, @PathVariable String bname, HttpServletRequest request) {	
 
-		
-		model.addAttribute("navbarLists", adminService.navbarTabsList());
 		
 		
 		return "shop/shop";

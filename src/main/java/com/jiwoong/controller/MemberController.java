@@ -27,12 +27,10 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	private final MemberService memberService;
-	private final AdminService adminService;
 	
 	@GetMapping("/")
-	public String main(Model model) {
+	public String mainUseAop(Model model) {
 		
-		model.addAttribute("navbarLists", adminService.navbarTabsList());
 		return "/main";
 	}
 	@GetMapping("/member/login")
